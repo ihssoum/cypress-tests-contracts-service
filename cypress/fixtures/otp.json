@@ -315,11 +315,11 @@
   },
   {
     "testCaseId": "58",
-    "testCaseName": "Long email",
+    "testCaseName": "Email not existing",
     "requestBody":{
       "sendOtpRequest":{
         "phoneNumber": "+1234567890",
-        "email": "qa-adria@gmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.com",
+        "email": "qa1-adria@gmail.com",
         "bankCode": "BANK001",
         "languageCode": "en"
       }
@@ -327,8 +327,8 @@
     "responseBody":{
       "status": "ERROR",
       "error": {
-        "code": "ERR_GENERAL_0002",
-        "message": "Invalid data format." 
+        "code": "ERR_GENERAL_0004",
+        "message": "The requested resource was not found." 
       }
     }
   },
@@ -367,6 +367,187 @@
       "error": {
         "code": "ERR_GENERAL_0002",
         "message": "Invalid data format" 
+      }
+    }
+  },
+  {
+    "testCaseId": "61",
+    "testCaseName": "Missing bank code",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "user@gmail!$.com",
+        "languageCode": "en"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0007",
+        "message": "Missing required attribute(s) : bankCode" 
+      }
+    }
+  },
+  {
+    "testCaseId": "62",
+    "testCaseName": "Inexistant bank code",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "XYZ9999",
+        "languageCode": "en"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0004",
+        "message": "The requested resource was not found." 
+      }
+    }
+  },
+  {
+    "testCaseId": "63",
+    "testCaseName": "Bank code w/ special characters",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK@#.",
+        "languageCode": "en"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0002",
+        "message": "Invalid data format." 
+      }
+    }
+  },
+  {
+    "testCaseId": "64",
+    "testCaseName": "Bank code not string",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": 12345,
+        "languageCode": "en"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0003",
+        "message": "Argument type mismatch." 
+      }
+    }
+  },
+  {
+    "testCaseId": "65",
+    "testCaseName": "Long bank code",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234",
+        "languageCode": "en"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0002",
+        "message": "Invalid data format." 
+      }
+    }
+  },
+  {
+    "testCaseId": "66",
+    "testCaseName": "Language code missing",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK003"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0007",
+        "message": "Missing required attribute(s) : languageCode" 
+      }
+    }
+  },
+  {
+    "testCaseId": "67",
+    "testCaseName": "Language code w/ special characters",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK003",
+        "languageCode": "@#!"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0002",
+        "message": "Invalid data format." 
+      }
+    }
+  },
+  {
+    "testCaseId": "68",
+    "testCaseName": "Language code not string",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK003",
+        "languageCode": 1234
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0003",
+        "message": "Argument type mismatch." 
+      }
+    }
+  },
+  {
+    "testCaseId": "69",
+    "testCaseName": "inexistant language code",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK003",
+        "languageCode": "ab"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0004",
+        "message": "The requested resource was not found." 
+      }
+    }
+  },
+  {
+    "testCaseId": "70",
+    "testCaseName": "long language code",
+    "requestBody":{
+      "sendOtpRequest":{
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK003",
+        "languageCode": "ababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab"
       }
     }
   }
