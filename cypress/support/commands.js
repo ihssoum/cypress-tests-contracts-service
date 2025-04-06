@@ -1,25 +1,32 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // Example: If there's a failure during a test, re-login to get a new token
+    cy.request({
+      method: 'POST',
+      url: 'https://api.example.com/login',
+      body: {
+        username: 'your-username',
+        password: 'your-password'
+      }
+    }).then((response) => {
+      const token = response.body.token;
+      Cypress.env('authToken', token); // Store the new token
+    });
+  
+    // Returning false here prevents Cypress from failing the test
+    return false;
+  });
+  // Intercept all API requests and add the Authorization header dynamically
+cy.intercept('*', 'https://api.example.com/*', (req) => {
+    const authToken = Cypress.env('authToken');
+    if (authToken) {
+      req.headers['Authorization'] = `Bearer ${authToken}`;
+    }
+  }).as('apiRequests');
+  
+  // Test making a request to a protected API
+  cy.request('GET', 'https://api.example.com/protected-resource')
+    .then((response) => {
+      expect(response.status).to.eq(200);
+    });
+  
+  
