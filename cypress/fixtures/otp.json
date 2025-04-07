@@ -549,6 +549,148 @@
         "bankCode": "BANK003",
         "languageCode": "ababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab"
       }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0002",
+        "message": "Invalid data format." 
+      }
     }
+  },
+  {
+    "testCaseId": "71",
+    "testCaseName": "Verify a valid OTP",
+    "requestBody":{
+      "verifyOtpRequest": {
+        "identifier" : "?",
+        "receivedOtp": "?"
+      }
+    },
+    "responseBody":{
+      "status": "SUCCESS",
+      "data": {
+        "valid": true,
+        "message": "OTP verification successful." 
+      }
+    }
+  },
+  {
+    "testCaseId": "72",
+    "testCaseName": "Verify an expired OTP (after 6 minutes)",
+    "requestBody":{
+      "verifyOtpRequest": {
+        "identifier" : "?",
+        "receivedOtp": "?"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0003",
+        "message": "The OTP has expired. Please request a new one." 
+      }
+    }
+  },
+  {
+    "testCaseId": "73",
+    "testCaseName": "Verify an old OTP after creating another one",
+    "requestBody":{
+      "verifyOtpRequest":{
+        "identifier" : "?",
+        "receivedOtp": "?"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP." 
+      }
+    }
+  },
+  {
+    "testCaseId": "74",
+    "testCaseName": "Inexistant identifier",
+    "requestBody":{
+      "verifyOtpRequest":{
+        "identifier" : "abc1234",
+        "receivedOtp": "123456"
+      }
+    },
+    "responseBody":{
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0002",
+        "message": "OTP verification failed. Please check the OTP and try again." 
+      }
+    }
+  },
+  {
+    "testCaseId": "75",
+    "testCaseName": "Verify OTP with incorrect password",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "1234azerty",
+        "receivedOtp": "123456"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    },
+    "statusCode": 400
+  },
+  {
+    "testCaseId": "76",
+    "testCaseName": "Verify an empty OTP request",
+    "requestBody": {
+      "verifyOtpRequest": {}
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0007",
+        "message": "Missing required attribute(s) : identifier, receivedOtp"
+      }
+    },
+    "statusCode": 400
+  },
+  {
+    "testCaseId": "77",
+    "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "receivedOtp": "123456"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0007",
+        "message": "Missing required attribute(s) : identifier"
+      }
+    },
+    "statusCode": 400
+  },
+  {
+    "testCaseId": "78",
+    "testCaseName": "OTP missing",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "azerty1234"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_GENERAL_0007",
+        "message": "Missing required attribute(s) : receivedOtp"
+      }
+    },
+    "statusCode": 400
   }
 ]
