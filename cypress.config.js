@@ -1,14 +1,8 @@
-const { defineConfig } = require("cypress");
+// cypress.config.js
+import { defineConfig } from 'cypress';
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-    // baseUrl: "http://localhost:3000", // Base URL for your application
-    // env: {
-    //   apiPath: "/api/v1", // Example global variable
-    // },
+    baseUrl: 'http://localhost:8080', // Replace with your actual base URL
   },
-  
 });
