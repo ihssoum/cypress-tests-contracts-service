@@ -1,0 +1,22 @@
+[
+    {
+        "testCaseId": 1,
+        "testCaseName": "testing poc",
+        "method": "GET",
+        "statusCode": 200,
+        "queryParms": {
+            "id": 1
+        },
+        "responseBody": {}
+    },
+    {
+        "testCaseId": 1,
+        "testCaseName": "testing poc",
+        "method": "GET",
+        "statusCode": 200,
+        "queryParms": {
+            "name": "Contract 1"
+        },
+        "responseBody": {}
+    }
+]
