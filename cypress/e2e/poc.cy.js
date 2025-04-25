@@ -1,14 +1,15 @@
 describe('Contracts Test Suite', () => {
 
-    before(() => {
+    before(function () {
         // Fetch contracts before running the tests
         cy.fetchContracts();
+        cy.fixture('contracts.json').as('contractsData');
     });
 
-    it('should verify contracts are fetched successfully', () => {
-        const testCase = this.contractsData.find(tc => tc.testCaseId === 1);
+    it('should verify contracts are fetched successfully', function () {
+        //const testCase = this.contractsData.find(tc => tc.testCaseId === 1);
 
-        console.log(contractsData);
+        //cy.log(this.contractsData);
         
         // request:
 
