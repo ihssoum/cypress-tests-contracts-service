@@ -1,0 +1,8 @@
+{
+  "contractId": "{{contractId}}",
+  "contractName": "{{contractName}}",
+  "startDate": "{{startDate}}",
+  "endDate": "{{endDate}}",
+  "radical": "{{radical}}",
+  "status": "{{status}}"
+}

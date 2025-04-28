@@ -1,0 +1,19 @@
+[
+    {
+      "contractNumber": "A12345",
+      "contractTitle": "Service Agreement",
+      "contractStart": "2025-01-01",
+      "contractEnd": "2025-12-31",
+      "clientName": "ClientA",
+      "contractStatus": "Active"
+    },
+    {
+      "contractNumber": "B67890",
+      "contractTitle": "Maintenance Contract",
+      "contractStart": "2025-02-01",
+      "contractEnd": "2025-08-31",
+      "clientName": "ClientB",
+      "contractStatus": "Inactive"
+    }
+  ]
+  
