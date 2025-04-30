@@ -5,15 +5,16 @@
     "method": "GET",
     "statusCode": 200,
     "queryParams": {
-      "id": 1
+      "contractId": "A12345"
     },
     "responseBody": {
-      "id": 1,
-      "name": "Contract 1",
-      "description": "Description for Contract 1",
-      "startDate": "2023-01-01",
-      "endDate": "2023-12-31",
-      "status": "active"
+      "contractId": "A12345",
+      "contractName": "Service Agreement",
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "radical": "ClientA",
+      "status": "Active",
+      "id": null
     }
   },
   {
@@ -22,15 +23,16 @@
     "method": "GET",
     "statusCode": 200,
     "queryParams": {
-      "name": "Contract 2"
+      "contractName": "Maintenance Contract"
     },
     "responseBody": {
-      "id": 2,
-      "name": "Contract 2",
-      "description": "Description for Contract 2",
-      "startDate": "2023-02-01",
-      "endDate": "2024-01-31",
-      "status": "inactive"
+      "contractId": "B67890",
+      "contractName": "Maintenance Contract",
+      "startDate": "2025-02-01",
+      "endDate": "2025-08-31",
+      "radical": "ClientB",
+      "status": "Inactive",
+      "id": null
     }
   }
 ]
