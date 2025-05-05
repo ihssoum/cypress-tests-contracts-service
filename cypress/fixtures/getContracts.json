@@ -1,0 +1,223 @@
+[
+  {
+    "testCaseId": 1,
+    "testCaseName": "Get all contracts without filters",
+    "api": "api/v1/contracts",
+    "method": "GET",
+    "statusCode": 200,
+    "status":"SUCCESS",
+    "queryParams": {},
+    "responseBody": {}
+  },
+  {
+    "testCaseId": 2,
+    "testCaseName": "should return 200 for a valid identifiantContrat",
+    "api": "api/v1/contracts?identifiantContrat=B0001768690730A",
+    "method": "GET",
+    "statusCode": 200,
+    "status":"SUCCESS",
+    "queryParams": {
+      "identifiantContrat": "B0001768690730A"
+    },
+    "responseBody": {
+      
+    }
+  },
+  {
+    "testCaseId": 3,
+    "testCaseName": "should return 404 for a non-existing identifiantContrat",
+    "api": "api/v1/contracts?identifiantContrat=B2221768690730C",
+    "method": "GET",
+    "statusCode": 404,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": "B2221768690730C"
+    },
+    "responseBody": {
+      "code": "ERR_CTR_0016",
+      "message": "The specified contract could not be found."
+    }
+  },
+  {
+    "testCaseId": 4,
+    "testCaseName": "should return 400 for identifiantContrat of type boolean(true)",
+    "api": "api/v1/contracts?identifiantContrat=true",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": true
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+    }
+  },
+  {
+    "testCaseId": 5,
+    "testCaseName": "should return 400 for identifiantContrat of type boolean(false)",
+    "api": "api/v1/contracts?identifiantContrat=false",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": false
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+    }
+  },
+  {
+    "testCaseId": 6,
+    "testCaseName": "should return 400 for identifiantContrat of type integer",
+    "api": "api/v1/contracts?identifiantContrat=123",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": 123
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+    }
+  },
+  {
+    "testCaseId": 7,
+    "testCaseName": "should return 400 for identifiantContrat with special characters",
+    "api": "api/v1/contracts?identifiantContrat=123@",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": "123@"
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+    }
+  },
+  {
+    "testCaseId": 8,
+    "testCaseName": "should return 400 for identifiantContrat with invalid format",
+    "api": "api/v1/contracts?identifiantContrat=B2221768690730C",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "identifiantContrat": "B2221768690730C"
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+    }
+  },
+  
+  {
+    "testCaseId": 9,
+    "testCaseName": "should return 200 for empty identifiantContrat",
+    "api": "api/v1/contracts?identifiantContrat=",    
+    "method": "GET",
+    "statusCode": 200,
+    "status":"SUCCESS",
+    "queryParams": {
+      
+    },
+    "responseBody": {
+      
+    }
+  },
+  {
+    "testCaseId": 10,
+    "testCaseName": "Recherche par code d'agence valide",
+    "api": "api/v1/contracts?agenceR=00013",    
+    "method": "GET",
+    "statusCode": 200,
+    "status":"SUCCESS",
+    "queryParams": {
+      "agenceR": "00013"
+    },
+    "responseBody": {
+      
+    }
+  },
+  {
+    "testCaseId": 11,
+    "testCaseName": "Recherche par code agence inexistant",
+    "api": "api/v1/contracts?agenceR=00099",    
+    "method": "GET",
+    "statusCode": 404,
+    "status":"ERROR",
+    "queryParams": {
+      "agenceR": "00099"
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0004",
+      "message": "The requested resource was not found."
+    }
+  },
+  {
+    "testCaseId": 12,
+    "testCaseName": "Recherche avec un code agence existant sans contrats associés",
+    "api": "api/v1/contracts?agenceR=87",    
+    "method": "GET",
+    "statusCode": 200,
+    "status":"SUCCESS",
+    "queryParams": {
+      "agenceR": "87"
+    },
+    "responseBody": {
+ 
+   }      
+  },
+  {
+    "testCaseId": 13,
+    "testCaseName": "should return 400 for boolean value in agenceR(true)",
+    "api": "api/v1/contracts?agenceR=true",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "agenceR": true
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+      
+   }      
+  },
+  {
+    "testCaseId": 14,
+    "testCaseName": "should return 400 for boolean value in agenceR(false)",
+    "api": "api/v1/contracts?agenceR=false",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "agenceR": false
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+      
+   }      
+  },
+  {
+    "testCaseId": 15,
+    "testCaseName": "should return 400 for integer value in agenceR",
+    "api": "api/v1/contracts?agenceR=123",    
+    "method": "GET",
+    "statusCode": 400,
+    "status":"ERROR",
+    "queryParams": {
+      "agenceR": 123
+    },
+    "responseBody": {
+      "code": "ERR_GENERAL_0002",
+      "message": "Invalid data format"
+      
+   }      
+  }
+
+]

@@ -1,4 +1,3 @@
-import { log } from "console";
 import { defineConfig } from "cypress";
 import fs from "fs";
 import path from "path";
@@ -6,7 +5,8 @@ import path from "path";
 export default defineConfig({
   e2e: {
     env: {
-        fixturesPath: "C:/Users/Achraf HAMMI/Documents/Adria/poc-cypress/cypress/fixtures",
+      fixturesPath:
+        "C:/Users/pc/Documents/Adria-QA/adria-dataprovider-service/cypress-tests-contracts-service/cypress/fixtures",
     },
     setupNodeEvents(on, config) {
       on("task", {
