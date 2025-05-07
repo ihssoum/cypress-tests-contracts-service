@@ -12,8 +12,9 @@ describe("GET /api/v1/contracts - identifiantContrat filter tests", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "2");
       cy.request({
         method: testCase.method,
-        url: testCase.api,
-        headers: { Authorization: token },
+        url: `${url}/${testCase.api}`,
+        Authorization: `Bearer ${token}`,
+        failOnStatusCode: false,
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
         expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(

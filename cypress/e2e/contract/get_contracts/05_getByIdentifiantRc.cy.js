@@ -1,4 +1,4 @@
-/*describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
+describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
   it("should return contracts for valid identifiantRC", () => {
     const identifiantRC = "2755966"; // Identifiant RC valide
     cy.request({
@@ -63,4 +63,3 @@
     });
   });
 });
-*/

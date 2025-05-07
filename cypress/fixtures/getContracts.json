@@ -423,12 +423,12 @@
   {
     "testCaseId": "2",
     "testCaseName": "should return 200 for a valid identifiantContrat",
-    "api": "api/v1/contracts?identifiantContrat=B0001768690730A",
+    "api": "api/v1/contracts?identifiantContrat=B0001768690955A",
     "method": "GET",
     "statusCode": 200,
     "status": "SUCCESS",
     "queryParams": {
-      "identifiantContrat": "B0001768690730A"
+      "identifiantContrat": "B0001768690955A"
     },
     "responseBody": []
   },
