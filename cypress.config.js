@@ -30,6 +30,24 @@ module.exports = defineConfig({
         async newLog(message){
             console.log(message);
             return true; // Indicate success
+        },
+        async clearOtpData({ query }){
+            try {
+                const connection = await oracledb.getConnection({
+                  user: "ADRIA_ABT",
+                  password: "ADRIA_ABT",
+                  connectString: "localhost:1521/ADRIA",
+                });
+    
+                // Execute the query passed as an argument
+                const result = await connection.execute(query);
+    
+                await connection.close();
+                return null; // Indicate success
+              } catch (err) {
+                console.error(err);
+                return err.message; // Return the error message
+              }
         }
       });
     },

@@ -16,7 +16,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "64c53efb-fbbb-4005-802c-2c2c31dcada6"
+        "identifier": "b2471220-9fd6-4839-a0de-2bb702cb72fb"
       }
     }
   },
@@ -37,7 +37,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "f2268639-c749-4cd9-81f6-226bdaa883fd"
+        "identifier": "2fb27939-9e21-49af-bafc-e29d2c6764cd"
       }
     }
   },
@@ -108,7 +108,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": null,
-        "identifier": "3203c472-a9ba-4c0f-8662-af781fda559c"
+        "identifier": "d519e914-30d5-4a90-84b2-291b9138afa1"
       }
     }
   },
@@ -148,7 +148,7 @@
       "data": {
         "phoneNumber": "+216643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "9ad6b3c9-6de7-404c-816a-a43b005237a0"
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b"
       }
     }
   },
@@ -199,7 +199,7 @@
         "customerId": "00801975",
         "phoneNumber": "+123456789012345678901212345678901234567890123456789012345678901234567890123451234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890345678901234567890123456789012345678901234567890123456789012345678901234567890",
         "bankCode": "00004",
-        "languageCode": "en"
+        "languageCode": "fr"
       }
     },
     "responseBody": {
@@ -590,15 +590,15 @@
     "testCaseName": "Verify a valid OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
-        "receivedOtp": "?"
+        "identifier": "2fb27939-9e21-49af-bafc-e29d2c6764cd",
+        "receivedOtp": "077026"
       }
     },
     "responseBody": {
       "status": "SUCCESS",
       "data": {
         "valid": true,
-        "message": "OTP verification successful."
+        "message": "OTP successfully validated"
       }
     }
   },
@@ -607,8 +607,8 @@
     "testCaseName": "Verify an expired OTP (after 6 minutes)",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
-        "receivedOtp": "?"
+        "identifier": "59c0d95d-b718-4e3f-8402-8f0f72089e53",
+        "receivedOtp": "648880"
       }
     },
     "responseBody": {
@@ -624,8 +624,8 @@
     "testCaseName": "Verify an old OTP after creating another one",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
-        "receivedOtp": "?"
+        "identifier": "b2471220-9fd6-4839-a0de-2bb702cb72fb",
+        "receivedOtp": "603332"
       }
     },
     "responseBody": {
@@ -642,13 +642,13 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "1234",
-        "receivedOtp": "?"
+        "receivedOtp": "883074"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0002",
+        "code": "ERR_OTP_0004",
         "message": "The OTP is invalid. Please enter the correct OTP."
       }
     }
@@ -658,7 +658,7 @@
     "testCaseName": "Verify OTP with incorrect password",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b",
         "receivedOtp": "123456"
       }
     },
@@ -668,8 +668,7 @@
         "code": "ERR_OTP_0004",
         "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "85",
@@ -680,28 +679,26 @@
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "86",
     "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
     "requestBody": {
       "verifyOtpRequest": {
-        "receivedOtp": "?"
+        "receivedOtp": "883074"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "87",
@@ -709,17 +706,16 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "?=/)àç_'\"{~#&",
-        "receivedOtp": "?"
+        "receivedOtp": "883074"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "88",
@@ -727,17 +723,16 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "444444444aaaaaaaaaaaaaa4444444444aaaaaaaaaaa4444444444aaaaaaa",
-        "receivedOtp": "?"
+        "receivedOtp": "883074"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "89",
@@ -745,87 +740,82 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": 123456789,
-        "receivedOtp": "?"
+        "receivedOtp": "883074"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "90",
     "testCaseName": "Missing OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?"
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "91",
     "testCaseName": "Long OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b",
         "receivedOtp": "80118012801380148015801680178018801980204864864564847654654555555555555555555555555555555555555555"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "92",
     "testCaseName": "Invalid OTP format",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b",
         "receivedOtp": "ae53135"
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   },
   {
     "testCaseId": "93",
     "testCaseName": "Numbered OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "?",
+        "identifier": "6d706eb5-ae1b-4a03-87fb-8e0917dbeb3b",
         "receivedOtp": 123456
       }
     },
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_OTP_0001",
-        "message": "Failed to send OTP. Please try again."
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
       }
-    },
-    "statusCode": 400
+    }
   }
 ]

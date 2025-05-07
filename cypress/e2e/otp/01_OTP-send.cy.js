@@ -1,4 +1,10 @@
 describe("/api/v1/otp/send test suite", () => {
+  before(() => {
+    cy.task("clearOtpData", {
+      query:
+        "DELETE FROM OTP WHERE TRUNC(CREATEDON) = TO_DATE('2025-05-07', 'YYYY-MM-DD')",
+    });
+  });
   beforeEach(function () {
     // First check if there's updated data in Cypress.env
     if (Cypress.env("updatedOtpData")) {
@@ -218,8 +224,6 @@ describe("/api/v1/otp/send test suite", () => {
       );
       Cypress.env("updatedOtpData", updatedOtpData);
     });
-
-    
   });
 
   it("TC-56 | Sending OTP w/ Non-Local Phone Number w/o mail", function () {

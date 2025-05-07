@@ -1,116 +1,151 @@
 describe("/api/v1/otp/verify test suite", () => {
   before(() => {
+
     cy.fixture("otp.json").then((otpData) => {
+      let updatedOtpData = [...otpData]; // Create a copy to modify throughout the chain
+
       // TC 81 - expired otp
       cy.task("fetchReceivedOtpFromDb", {
         query: "SELECT identifiant, otp_code FROM OTP WHERE ID = 1025688",
-      }).then((result) => {
-        const updatedOtpData = otpData.map((tc) =>
-          tc.testCaseId === 81
-            ? {
-                ...tc,
-                requestBody: {
-                  ...tc.requestBody,
-                  verifyOtpRequest: {
-                    ...tc.requestBody.verifyOtpRequest,
-                    identifier: result[0], // Assign identifier from query result
-                    receivedOtp: result[1], // Assign receivedOtp from query result
+      })
+        .then((result) => {
+          updatedOtpData = updatedOtpData.map((tc) =>
+            tc.testCaseId === "81"
+              ? {
+                  ...tc,
+                  requestBody: {
+                    ...tc.requestBody,
+                    verifyOtpRequest: {
+                      ...tc.requestBody.verifyOtpRequest,
+                      identifier: result[0], // Assign identifier from query result
+                      receivedOtp: result[1], // Assign receivedOtp from query result
+                    },
                   },
-                },
-              }
-            : tc
-        );
-        cy.log(updatedOtpData, result[0], result[1]);
-        cy.writeFile("cypress/fixtures/otp.json", updatedOtpData);
-      });
+                }
+              : tc
+          );
 
-      // TC 80 - valid otp
-      cy.fixture("otp.json").as("otpData");
-      const tcValidIdentifier = otpData.find(
-        (tc) => tc.testCaseId === "51"
-      ).responseBody.data.identifier;
-      cy.task("fetchReceivedOtpFromDb", {
-        query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcValidIdentifier}'`,
-      }).then((result) => {
-        const updatedOtpData = otpData.map((tc) =>
-          tc.testCaseId === 80
-            ? {
-                ...tc,
-                requestBody: {
-                  ...tc.requestBody,
-                  identifier: result[0],
-                  receivedOtp: result[1],
-                },
-              }
-            : tc
-        );
-        cy.writeFile("cypress/fixtures/otp.json", updatedOtpData);
-      });
+          // TC 80 - valid otp
+          const tcValidIdentifier = otpData.find((tc) => tc.testCaseId === "51")
+            .responseBody.data.identifier;
 
-      // TC 82: - old otp
-      cy.fixture("otp.json").as("otpData");
-      const tcOldIdentifier = otpData.find((tc) => tc.testCaseId === "50")
-        .responseBody.data.identifier;
-      cy.task("fetchReceivedOtpFromDb", {
-        query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcOldIdentifier}'`,
-      }).then((result) => {
-        const updatedOtpData = otpData.map((tc) =>
-          tc.testCaseId === 82
-            ? {
-                ...tc,
-                requestBody: {
-                  ...tc.requestBody,
-                  identifier: result[0],
-                  receivedOtp: result[1],
-                },
-              }
-            : tc
-        );
-        cy.writeFile("cypress/fixtures/otp.json", updatedOtpData);
-      });
+          return cy
+            .task("fetchReceivedOtpFromDb", {
+              query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcValidIdentifier}'`,
+            })
+            .then((result) => {
+              updatedOtpData = updatedOtpData.map((tc) =>
+                tc.testCaseId === "80"
+                  ? {
+                      ...tc,
+                      requestBody: {
+                        ...tc.requestBody,
+                        verifyOtpRequest: {
+                          ...tc.requestBody.verifyOtpRequest,
+                          identifier: result[0],
+                          receivedOtp: result[1],
+                        },
+                      },
+                    }
+                  : tc
+              );
+              return result; // Return result for chaining
+            });
+        })
+        .then(() => {
+          // TC 82: - old otp
+          const tcOldIdentifier = otpData.find((tc) => tc.testCaseId === "50")
+            .responseBody.data.identifier;
 
-      // TC 83, 86, 87, 88, 89: edge cases on identifier w/ valid otp
-      cy.fixture("otp.json").as("otpData");
-      const tcEdgeIdentifier = otpData.find((tc) => tc.testCaseId === "55")
-        .responseBody.data.identifier;
-      cy.task("fetchReceivedOtpFromDb", {
-        query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcEdgeIdentifier}'`,
-      }).then((result) => {
-        const updatedOtpData = otpData.map((tc) =>
-          [83, 86, 87, 88, 89].includes(tc.testCaseId)
-            ? {
-                ...tc,
-                requestBody: {
-                  ...tc.requestBody,
-                  receivedOtp: result[1],
-                },
-              }
-            : tc
-        );
-        cy.writeFile("cypress/fixtures/otp.json", updatedOtpData);
-      });
+          return cy
+            .task("fetchReceivedOtpFromDb", {
+              query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcOldIdentifier}'`,
+            })
+            .then((result) => {
+              updatedOtpData = updatedOtpData.map((tc) =>
+                tc.testCaseId === "82"
+                  ? {
+                      ...tc,
+                      requestBody: {
+                        ...tc.requestBody,
+                        verifyOtpRequest: {
+                          ...tc.requestBody.verifyOtpRequest,
+                          identifier: result[0],
+                          receivedOtp: result[1],
+                        },
+                      },
+                    }
+                  : tc
+              );
+              return result; // Return result for chaining
+            });
+        })
+        .then(() => {
+          // TC 83, 86, 87, 88, 89: edge cases on identifier w/ valid otp
+          const tcEdgeIdentifier = otpData.find((tc) => tc.testCaseId === "55")
+            .responseBody.data.identifier;
 
-      // TC 84, 90, 91, 92, 93: edge cases on otp w/ valid identifier
-      cy.fixture("otp.json").as("otpData");
-      const tcEdgeOtp = otpData.find((tc) => tc.testCaseId === "57")
-        .responseBody.data.identifier;
-      const updatedOtpData = otpData.map((tc) =>
-        [84, 90, 91, 92, 93].includes(tc.testCaseId)
-          ? {
-              ...tc,
-              requestBody: {
-                ...tc.requestBody,
-                identifier: tcEdgeOtp,
-              },
-            }
-          : tc
-      );
-      cy.writeFile("cypress/fixtures/otp.json", updatedOtpData);
+          return cy
+            .task("fetchReceivedOtpFromDb", {
+              query: `SELECT identifiant, otp_code FROM OTP WHERE identifiant = '${tcEdgeIdentifier}'`,
+            })
+            .then((result) => {
+              updatedOtpData = updatedOtpData.map((tc) =>
+                ["83", "86", "87", "88", "89"].includes(tc.testCaseId)
+                  ? {
+                      ...tc,
+                      requestBody: {
+                        ...tc.requestBody,
+                        verifyOtpRequest: {
+                          ...tc.requestBody.verifyOtpRequest,
+                          receivedOtp: result[1],
+                        },
+                      },
+                    }
+                  : tc
+              );
+              return result; // Return result for chaining
+            });
+        })
+        .then(() => {
+          // TC 84, 90, 91, 92, 93: edge cases on otp w/ valid identifier
+          const tcEdgeOtp = otpData.find((tc) => tc.testCaseId === "57")
+            .responseBody.data.identifier;
+
+          updatedOtpData = updatedOtpData.map((tc) =>
+            ["84", "90", "91", "92", "93"].includes(tc.testCaseId)
+              ? {
+                  ...tc,
+                  requestBody: {
+                    ...tc.requestBody,
+                    verifyOtpRequest: {
+                      ...tc.requestBody.verifyOtpRequest,
+                      identifier: tcEdgeOtp,
+                    },
+                  },
+                }
+              : tc
+          );
+
+          // Set the final updated data to Cypress environment
+          Cypress.env("updatedOtpData", updatedOtpData);
+        });
     });
   });
 
-  beforeEach(() => {
-    cy.fixture("otp.json").as("otpData");
+  beforeEach(function () {
+    // First check if there's updated data in Cypress.env
+    if (Cypress.env("updatedOtpData")) {
+      // Use the updated data from previous tests
+      this.otpData = Cypress.env("updatedOtpData");
+      cy.log("Using updated OTP data from environment");
+    } else {
+      // If no updated data exists yet, load from fixture
+      cy.fixture("otp.json").then((otpData) => {
+        this.otpData = otpData;
+        cy.log("Loaded original OTP data from fixture");
+      });
+    }
   });
 
   it("TC-80 | Verify OTP with valid data", function () {
@@ -123,18 +158,18 @@ describe("/api/v1/otp/verify test suite", () => {
       failOnStatusCode: false,
     }).then((response) => {
       expect(response.status).to.eq(200);
-      expect(response.body.ResponseWrapperVerifyOtpData).to.have.property(
+      expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
         "status",
         "SUCCESS"
       );
-      expect(response.body.ResponseWrapperVerifyOtpData).to.have.property(
+      expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
         "data"
       );
-      expect(response.body.ResponseWrapperVerifyOtpData.data).to.have.property(
+      expect(response.body.ResponseWrapperVerifyOtpDto.data).to.have.property(
         "valid",
         true
       );
-      expect(response.body.ResponseWrapperVerifyOtpData.data).to.have.property(
+      expect(response.body.ResponseWrapperVerifyOtpDto.data).to.have.property(
         "message",
         testCase.responseBody.data.message
       );
@@ -150,14 +185,13 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
+      expect(response.status).to.eq(400);
+      expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+        "codeMessage",
         testCase.responseBody.error.code
       );
-      expect(response.body.ResponseWrapper.error).to.have.property(
+      expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
         "message",
         testCase.responseBody.error.message
       );
@@ -173,17 +207,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -196,17 +229,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -219,17 +251,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -242,17 +273,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -265,17 +295,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -288,17 +317,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -311,17 +339,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -334,17 +361,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -357,17 +383,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -380,17 +405,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
   });
 
@@ -403,17 +427,16 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
     });
 
     it("TC-93 | Numbered OTP (not string)", function () {
@@ -425,17 +448,13 @@ describe("/api/v1/otp/verify test suite", () => {
         body: testCase.requestBody,
         failOnStatusCode: false,
       }).then((response) => {
-        expect(response.status).to.eq(500);
-        expect(response.body.ResponseWrapper).to.have.property(
-          "status",
-          "ERROR"
-        );
-        expect(response.body.ResponseWrapper).to.have.property("error");
-        expect(response.body.ResponseWrapper.error).to.have.property(
-          "code",
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
           testCase.responseBody.error.code
         );
-        expect(response.body.ResponseWrapper.error).to.have.property(
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
           "message",
           testCase.responseBody.error.message
         );
