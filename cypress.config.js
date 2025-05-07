@@ -1,12 +1,13 @@
-import { defineConfig } from "cypress";
-import fs from "fs";
-import path from "path";
+const { defineConfig } = require("cypress");
+const fs = require("fs");
+const path = require("path");
 
-export default defineConfig({
+module.exports = defineConfig({
   e2e: {
     env: {
       fixturesPath:
-        "C:/Users/pc/Documents/Adria-QA/adria-dataprovider-service/cypress-tests-contracts-service/cypress/fixtures",
+        "C:/Users/pc/Documents/Adria-QA/adria-dataprovider-service-cy/cypress-tests-contracts-service/cypress/fixtures",
+      getContractsUrl: "http://192.168.8.137:8030",
     },
     setupNodeEvents(on, config) {
       on("task", {

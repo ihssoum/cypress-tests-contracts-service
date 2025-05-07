@@ -7,28 +7,39 @@ Cypress.Commands.add("fetchContracts", () => {
           id: Number(contract.id),
         };
       });
-
-      cy.fixture("contracts.json").then((contracts) => {
+      //console.log("API Data:", apiData);
+      cy.fixture("getContracts.json").then((contracts) => {
         const updatedContracts = contracts.map((contract) => {
-          if (contract.queryParams) {
-            const matchingData = apiData.find((item) => {
-              return Object.entries(contract.queryParams).every(
-                ([key, value]) => item[key] === value
-              );
-            });
-            if (matchingData) {
-              contract.responseBody = matchingData;
-            }
+          if (contract.responseBody && contract.responseBody.length > 0) {
+            return contract;
           } else {
-            contract.responseBody = apiData;
+            if (
+              contract.queryParams &&
+              Object.keys(contract.queryParams).length > 0
+            ) {
+              const matchingData = apiData.find((item) => {
+                return Object.entries(contract.queryParams).every(
+                  ([key, value]) => item[key] === value
+                );
+              });
+              if (matchingData) {
+                contract.responseBody = matchingData;
+              }
+            } else {
+              contract.responseBody = apiData;
+              console.log("hana");
+              console.log(contract.responseBody);
+            }
           }
           return contract;
         });
-
+        console.log(updatedContracts);
         cy.task("writeFile", {
-          filePath: "contracts.json",
+          filePath: "getContracts.json",
           content: JSON.stringify(updatedContracts, null, 2),
         });
+
+        //console.log(updatedContracts);
       });
     }
   );
