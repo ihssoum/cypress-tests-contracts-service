@@ -1,21 +1,29 @@
 [
   {
-    "testCaseId": "85",
-    "testCaseName": "Valid contract with two beneficiaries",
+    "customerId": 1000246
+  },
+  {
+    "testCaseId": "94",
+    "testCaseName": "Valid contract with beneficiaries",
+    "queryParams": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "customerId": "00801971",
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "1000241",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "1234567890123456789012",
+            "rib": "15228306599062597958",
             "title": "Bénéficiaire 1",
             "currency": "MAD"
           },
           {
-            "rib": "1234567890123456789023",
+            "rib": "73773827240263675197",
             "title": "Bénéficiaire 2",
             "currency": "MAD"
           }
@@ -25,24 +33,54 @@
     "responseBody": {
       "status": "SUCCESS",
       "data": {
-        "success": true,
-        "token": "bc34a1c0ea0f4e44b5911641a559f9ee"
+        "success": true
       }
     }
   },
   {
-    "testCaseId": "86",
-    "testCaseName": "Missing customerId",
+    "testCaseId": "95",
+    "testCaseName": "Create contract with valid data w/o beneficiaries",
+    "queryParams": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "1000242",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": []
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "success": true
+      }
+    }
+  },
+  {
+    "testCaseId": "96",
+    "testCaseName": "Create contract with a client that have an entreprise segment",
+    "queryParams": {
+      "action": "CREATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "193",
+          "292"
+        ],
+        "customerId": "1000243",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "04012086007461825728",
-            "title": "Mlle. Ihssane SOUMIR",
-            "currency": "USD"
+            "rib": "15228306599062597958",
+            "title": "M. Achraf HAMMI",
+            "currency": "MAD"
           }
         ]
       }
@@ -50,25 +88,128 @@
     "responseBody": {
       "status": "ERROR",
       "error": {
-        "code": "ERR_GENERAL_0007",
-        "message": "Missing required attribute(s) : customerId"
+        "code": "ERR_CTR_0002",
+        "message": "The chosen segment is invalid. Please select a valid segment."
       }
     }
   },
   {
-    "testCaseId": "87",
-    "testCaseName": "Invalid product code",
+    "testCaseId": "97",
+    "testCaseName": "Create contract with a client that already has a contract",
+    "queryParams": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["999"],
-        "customerId": "00801971",
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "00801972",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "04012086007461825728",
-            "title": "M. Jean Dupont",
+            "rib": "15228306599062597958",
+            "title": "M. Achraf HAMMI",
             "currency": "MAD"
+          }
+        ]
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_CTR_0003",
+        "message": "The radical already exists. Please choose a different one."
+      }
+    }
+  },
+  {
+    "testCaseId": "98",
+    "testCaseName": "Integration with CBS - Create contract with a client that doesn't exist in CBS",
+    "queryParams": {
+      "action": "CREATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "193",
+          "292"
+        ],
+        "customerId": "9999999",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": []
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_CTR_0007",
+        "message": "The client does not exist. Please check the client ID or create a new client."
+      }
+    }
+  },
+  {
+    "testCaseId": "99",
+    "testCaseName": "Action parameter missing",
+    "queryParams": {},
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "192"
+        ],
+        "customerId": "00801972",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": []
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {}
+    }
+  },
+  {
+    "testCaseId": "100",
+    "testCaseName": "Missing customerId",
+    "queryParams": {
+      "action": "CREATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "192"
+        ],
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": []
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {}
+    }
+  },
+  {
+    "testCaseId": "101",
+    "testCaseName": "Product code invalide",
+    "queryParams": {
+      "action": "CREATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "999"
+        ],
+        "customerId": "1000072",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": [
+          {
+            "rib": "15228306599062597958",
+            "title": "M. Jean Dupont",
+            "currency": "TND"
           }
         ]
       }
@@ -77,24 +218,54 @@
       "status": "ERROR",
       "error": {
         "code": "ERR_CTR_0020",
-        "message": "You must select a valid Commercial Offer. The following product codes are invalid: 999."
+        "message": "You must select a valid Commercial Offer. The following product codes are invalid: 999 ."
       }
     }
   },
   {
-    "testCaseId": "88",
-    "testCaseName": "Invalid RIB format",
+    "testCaseId": "102",
+    "testCaseName": "Product code missing",
+    "queryParams": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "customerId": "00801971",
-        "bankCode": "BANK001",
+        "customerId": "1000072",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": [
+          {
+            "rib": "15228306599062597958",
+            "title": "M. Jean Dupont",
+            "currency": "TND"
+          }
+        ]
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {}
+    }
+  },
+  {
+    "testCaseId": "103",
+    "testCaseName": "RIB Beneficiary invalid",
+    "queryParams": {
+      "action": "CREATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "292"
+        ],
+        "customerId": "1000244",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
             "rib": "RIB_INVALIDE",
             "title": "M. Jean Dupont",
-            "currency": "MAD"
+            "currency": "TND"
           }
         ]
       }
@@ -103,24 +274,57 @@
       "status": "ERROR",
       "error": {
         "code": "ERR_CTR_0021",
-        "message": "Invalid RIB(s) found: RIB_INVALIDE. You should provide valid RIBs for these beneficiaries."
+        "message": "Invalid RIB(s) found: RIB_INVALIDE . You should provide valid RIBs for these beneficiaries."
       }
     }
   },
   {
-    "testCaseId": "89",
-    "testCaseName": "Invalid customer ID (client does not exist)",
+    "testCaseId": "104",
+    "testCaseName": "Invalid action parameter",
+    "queryParam": {
+      "action": "CREATE123"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "customerId": "99999999",
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "00801980",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "04012086007461825728",
-            "title": "Client Inconnu",
-            "currency": "MAD"
+            "rib": "RIB_INVALIDE",
+            "title": "M. Jean Dupont",
+            "currency": "TND"
+          }
+        ]
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {}
+    }
+  },
+  {
+    "testCaseId": "105",
+    "testCaseName": "Update with a customerId doesn't exist",
+    "queryParam": {
+      "action": "UPDATE"
+    },
+    "requestBody": {
+      "contractRequest": {
+        "productCode": [
+          "292"
+        ],
+        "customerId": "1000245",
+        "bankCode": "00004",
+        "languageCode": "fr",
+        "beneficiaries": [
+          {
+            "rib": "RIB_INVALIDE",
+            "title": "M. Jean Dupont",
+            "currency": "TND"
           }
         ]
       }
@@ -134,13 +338,18 @@
     }
   },
   {
-    "testCaseId": "90",
-    "testCaseName": "Invalid currency code",
+    "testCaseId": "106",
+    "testCaseName": "Invalid currency for beneficiary",
+    "queryParam": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "customerId": "00801971",
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "{{customerId}}",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
@@ -160,22 +369,27 @@
     }
   },
   {
-    "testCaseId": "91",
-    "testCaseName": "Empty beneficiaries array",
+    "testCaseId": "107",
+    "testCaseName": "Create contract with an unverified customer",
+    "queryParam": {
+      "action": "CREATE"
+    },
     "requestBody": {
       "contractRequest": {
-        "productCode": ["192"],
-        "customerId": "00801971",
-        "bankCode": "BANK001",
+        "productCode": [
+          "292"
+        ],
+        "customerId": "1000073",
+        "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": []
       }
     },
     "responseBody": {
-      "status": "SUCCESS",
-      "data": {
-        "success": true,
-        "token": "bc34a1c0ea0f4e44b5911641a559f9ee"
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_CTR_0027",
+        "message": "Phone number or email not verified or not provided."
       }
     }
   }
