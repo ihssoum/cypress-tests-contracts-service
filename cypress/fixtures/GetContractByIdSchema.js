@@ -218,15 +218,6 @@ export const contractResponseSchema = {
               nbrMaxBenDomTous: { type: "integer" },
               nbrMaxBenRechTous: { type: "integer" },
               nbrMaxBenDevTous: { type: "integer" },
-
-
-
-
-
-
-
-
-
               nbrMaxBenMADTousFormatted: { type: "string" },
               nbrMaxBenDomTousFormatted: { type: "string" },
               nbrMaxBenRechTousFormatted: { type: "string" },

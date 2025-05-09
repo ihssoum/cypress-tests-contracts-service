@@ -1,10 +1,10 @@
-import { contractResponseSchema } from '../fixtures/schemas/contractSchema';  // Import the schema
+import { contractResponseSchema } from '../fixtures/schemas/contractSchema';  
 
 describe('GET /api/v1/contracts/:id', () => {
-  let contractId = 1;  // Use a valid contract ID for your environment
+  let contractId = 1;  
 
   before(() => {
-    cy.login();  // Custom command to login 
+    cy.login();  
   });
 
   it('should return status 200 and a valid schema for contract', () => {
