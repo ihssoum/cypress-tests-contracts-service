@@ -1,47 +1,73 @@
 Cypress.Commands.add("fetchContracts", () => {
-  cy.request("http://localhost:3000/contracts?client=abt").then((apiResponse) => {
-    const apiData = apiResponse.body.map((contract) => ({
-      ...contract,
-      id: Number(contract.id),
-    }));
-
-    cy.fixture("getContracts.json").then((contracts) => {
-      const updatedContracts = contracts.map((contract) => {
-        // If responseBody is already filled, skip
-        if (contract.responseBody && contract.responseBody.length > 0) {
-          return contract;
-        }
-
-        // If queryParams contains ID (assumed to be "id")
-        if (contract.queryParams && contract.queryParams.id) {
-          const contractId = contract.queryParams.id;
-          const matchingData = apiData.find(item => item.id === Number(contractId));
-
-          if (matchingData) {
-            // Fetch full data for specific ID via by-id endpoint
-            return cy.request(
-              `http://localhost:3000/contracts/by-id/${contractId}?client=abt`
-            ).then((response) => {
-              contract.responseBody = response.body;
-              return contract;
-            });
-          }
-        } else {
-          // No specific ID: assume list endpoint
-          contract.responseBody = apiData;
-          return contract;
-        }
-
-        return contract;
+  cy.request("http://localhost:3000/contracts?client=abt").then(
+    (apiResponse) => {
+      const apiData = apiResponse.body.map((contract) => {
+        return {
+          ...contract,
+          id: Number(contract.id),
+        };
       });
-
-      // Handle all promises (since map might return promises)
-      Promise.all(updatedContracts).then((finalizedContracts) => {
+      //console.log("API Data:", apiData);
+      cy.fixture("getContracts.json").then((contracts) => {
+        const updatedContracts = contracts.map((contract) => {
+          if (contract.responseBody && contract.responseBody.length > 0) {
+            return contract;
+          } else {
+            if (
+              contract.queryParams &&
+              Object.keys(contract.queryParams).length > 0
+            ) {
+              const matchingData = apiData.find((item) => {
+                return Object.entries(contract.queryParams).every(
+                  ([key, value]) => item[key] === value
+                );
+              });
+              if (matchingData) {
+                contract.responseBody = matchingData;
+              }
+            } else {
+              contract.responseBody = apiData;
+              console.log("hana");
+              console.log(contract.responseBody);
+            }
+          }
+          return contract;
+        });
+        console.log(updatedContracts);
         cy.task("writeFile", {
           filePath: "getContracts.json",
-          content: JSON.stringify(finalizedContracts, null, 2),
+          content: JSON.stringify(updatedContracts, null, 2),
+        });
+
+        //console.log(updatedContracts);
+      });
+    }
+  );
+});
+Cypress.Commands.add("fetchContractById", (contractId) => {
+  const client = "abt";
+
+  cy.request(`http://localhost:3000/contracts/by-id/${contractId}?client=${client}`)
+    .then((response) => {
+      const contractData = response.body;
+
+      cy.fixture("getContractByIdResponseSchema.json").then((contracts) => {
+        const updatedContracts = contracts.map((contract) => {
+          // If this contract matches the requested ID, update its responseBody
+          if (
+            contract.queryParams &&
+            Number(contract.queryParams.id) === Number(contractId)
+          ) {
+            contract.responseBody = contractData;
+          }
+          return contract;
+        });
+
+        cy.task("writeFile", {
+          filePath: "getContracts.json",
+          content: JSON.stringify(updatedContracts, null, 2),
         });
       });
     });
-  });
 });
+
