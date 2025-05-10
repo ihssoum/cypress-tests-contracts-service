@@ -1,6 +1,6 @@
 [
   {
-    "customerId": 1000246
+    "customerId": 1000284
   },
   {
     "testCaseId": "94",
@@ -13,7 +13,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000241",
+        "customerId": "1000281",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -48,7 +48,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000242",
+        "customerId": "1000282",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": []
@@ -73,7 +73,7 @@
           "193",
           "292"
         ],
-        "customerId": "1000243",
+        "customerId": "1000283",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -258,7 +258,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000244",
+        "customerId": "1000072",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -274,7 +274,7 @@
       "status": "ERROR",
       "error": {
         "code": "ERR_CTR_0021",
-        "message": "Invalid RIB(s) found: RIB_INVALIDE . You should provide valid RIBs for these beneficiaries."
+        "message": "Invalid RIB(s) found: RIB_INVALIDE. You should provide valid RIBs for these beneficiaries."
       }
     }
   },
@@ -294,7 +294,7 @@
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "RIB_INVALIDE",
+            "rib": "15228306599062597958",
             "title": "M. Jean Dupont",
             "currency": "TND"
           }
@@ -317,12 +317,12 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000245",
+        "customerId": "8888888",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
           {
-            "rib": "RIB_INVALIDE",
+            "rib": "15228306599062597958",
             "title": "M. Jean Dupont",
             "currency": "TND"
           }

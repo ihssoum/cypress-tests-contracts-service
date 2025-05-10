@@ -3,6 +3,8 @@ const oracledb = require("oracledb");
 const fs = require("fs");
 const path = require("path");
 
+
+
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
@@ -71,6 +73,6 @@ module.exports = defineConfig({
         },
       });
     },
-    baseUrl: "http://localhost:8030"
+    baseUrl: "http://localhost:8030",
   },
 });
