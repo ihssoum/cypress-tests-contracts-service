@@ -16,7 +16,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "c8035ebd-272f-4519-aff6-293f6809a149"
+        "identifier": "73d8acc9-beb2-4314-9852-cd35629d771a"
       }
     }
   },
@@ -37,7 +37,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "830c1d45-7b99-48a8-8a18-dade575af6e3"
+        "identifier": "8f8a4587-50af-418a-9273-0716844ce603"
       }
     }
   },
@@ -108,7 +108,7 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": null,
-        "identifier": "8587118d-2eac-4d77-a2f4-bfdd8594a7f0"
+        "identifier": "17a67c51-950f-4477-bef9-f10275f2a84f"
       }
     }
   },
@@ -148,7 +148,7 @@
       "data": {
         "phoneNumber": "+216643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2"
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02"
       }
     }
   },
@@ -590,8 +590,8 @@
     "testCaseName": "Verify a valid OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "830c1d45-7b99-48a8-8a18-dade575af6e3",
-        "receivedOtp": "422604"
+        "identifier": "8f8a4587-50af-418a-9273-0716844ce603",
+        "receivedOtp": "431374"
       }
     },
     "responseBody": {
@@ -624,8 +624,8 @@
     "testCaseName": "Verify an old OTP after creating another one",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "c8035ebd-272f-4519-aff6-293f6809a149",
-        "receivedOtp": "677758"
+        "identifier": "73d8acc9-beb2-4314-9852-cd35629d771a",
+        "receivedOtp": "608242"
       }
     },
     "responseBody": {
@@ -642,7 +642,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "1234",
-        "receivedOtp": "596444"
+        "receivedOtp": "719865"
       }
     },
     "responseBody": {
@@ -658,7 +658,7 @@
     "testCaseName": "Verify OTP with incorrect password",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2",
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
         "receivedOtp": "123456"
       }
     },
@@ -689,7 +689,7 @@
     "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
     "requestBody": {
       "verifyOtpRequest": {
-        "receivedOtp": "596444"
+        "receivedOtp": "719865"
       }
     },
     "responseBody": {
@@ -706,7 +706,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "?=/)àç_'\"{~#&",
-        "receivedOtp": "596444"
+        "receivedOtp": "719865"
       }
     },
     "responseBody": {
@@ -723,7 +723,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "444444444aaaaaaaaaaaaaa4444444444aaaaaaaaaaa4444444444aaaaaaa",
-        "receivedOtp": "596444"
+        "receivedOtp": "719865"
       }
     },
     "responseBody": {
@@ -740,7 +740,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": 123456789,
-        "receivedOtp": "596444"
+        "receivedOtp": "719865"
       }
     },
     "responseBody": {
@@ -756,7 +756,7 @@
     "testCaseName": "Missing OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2"
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02"
       }
     },
     "responseBody": {
@@ -772,7 +772,7 @@
     "testCaseName": "Long OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2",
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
         "receivedOtp": "80118012801380148015801680178018801980204864864564847654654555555555555555555555555555555555555555"
       }
     },
@@ -789,7 +789,7 @@
     "testCaseName": "Invalid OTP format",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2",
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
         "receivedOtp": "ae53135"
       }
     },
@@ -806,7 +806,7 @@
     "testCaseName": "Numbered OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "e42e3e7b-cfd5-43eb-a5dc-29ba47e0bdd2",
+        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
         "receivedOtp": 123456
       }
     },

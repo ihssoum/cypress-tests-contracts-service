@@ -1,6 +1,6 @@
 [
   {
-    "customerId": 1000284
+    "customerId": 1000287
   },
   {
     "testCaseId": "94",
@@ -13,7 +13,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000281",
+        "customerId": "1000284",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -48,7 +48,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000282",
+        "customerId": "1000285",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": []
@@ -73,7 +73,7 @@
           "193",
           "292"
         ],
-        "customerId": "1000283",
+        "customerId": "1000286",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
