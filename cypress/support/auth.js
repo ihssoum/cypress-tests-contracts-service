@@ -27,5 +27,5 @@ Cypress.Commands.add("getToken", () => {
 
     //cy.log(token); // adapte ici : ex. response.body.access_token ?
     cy.wrap(token).as("authToken");
-  });
+  });
 });

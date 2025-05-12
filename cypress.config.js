@@ -5,7 +5,7 @@ const path = require("path");
 const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
 
-module.exports = defineConfig({
+export default {
   e2e: {
     setupNodeEvents(on, config) {
         allureWriter(on, config);
@@ -83,4 +83,4 @@ module.exports = defineConfig({
 
     }
   },
-});
+};
