@@ -1,3 +1,5 @@
+const toPrettyYaml = require('json-to-pretty-yaml');
+
 describe("/api/v1/otp/send test suite", () => {
   before(() => {
     cy.task("clearOtpData", {
@@ -22,6 +24,8 @@ describe("/api/v1/otp/send test suite", () => {
 
   it("TC-50 | Send a request for OTP with valid data", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "50");
+    
+    
 
     cy.request({
       method: "POST",
@@ -63,6 +67,16 @@ describe("/api/v1/otp/send test suite", () => {
           : tc
       );
       Cypress.env("updatedOtpData", updatedOtpData);
+
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
+      );
     });
   });
 
@@ -109,6 +123,15 @@ describe("/api/v1/otp/send test suite", () => {
           : tc
       );
       Cypress.env("updatedOtpData", updatedOtpData);
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
+      );
     });
   });
 
@@ -131,6 +154,15 @@ describe("/api/v1/otp/send test suite", () => {
       expect(response.body.ResponseWrapper.error).to.have.property(
         "message",
         testCase.responseBody.error.message
+      );
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
       );
     });
   });
@@ -155,6 +187,15 @@ describe("/api/v1/otp/send test suite", () => {
         "message",
         testCase.responseBody.error.message
       );
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
+      );
     });
   });
 
@@ -177,6 +218,15 @@ describe("/api/v1/otp/send test suite", () => {
       expect(response.body.ResponseWrapper.error).to.have.property(
         "message",
         testCase.responseBody.error.message
+      );
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
       );
     });
   });
@@ -223,6 +273,15 @@ describe("/api/v1/otp/send test suite", () => {
           : tc
       );
       Cypress.env("updatedOtpData", updatedOtpData);
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
+      );
     });
   });
 
@@ -245,6 +304,15 @@ describe("/api/v1/otp/send test suite", () => {
       expect(response.body.ResponseWrapper.error).to.have.property(
         "message",
         testCase.responseBody.error.message
+      );
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
       );
     });
   });
@@ -291,6 +359,15 @@ describe("/api/v1/otp/send test suite", () => {
           : tc
       );
       Cypress.env("updatedOtpData", updatedOtpData);
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
+      );
     });
   });
 
@@ -314,6 +391,16 @@ describe("/api/v1/otp/send test suite", () => {
         "message",
         testCase.responseBody.error.message
       );
+
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n"
+        + "Request Body: " + toPrettyYaml.stringify(testCase.requestBody) + "\n"
+        + "Expected Response Body: " + toPrettyYaml.stringify(testCase.responseBody) + "\n"
+        + "Actual Response Body: " + toPrettyYaml.stringify(response.body.ResponseWrapper)
+
+      );
     });
   });
 
@@ -336,6 +423,15 @@ describe("/api/v1/otp/send test suite", () => {
       expect(response.body.ResponseWrapper.error).to.have.property(
         "message",
         testCase.responseBody.error.message
+      );
+      Cypress.Allure.reporter
+      .getInterface()
+      .description(
+        testCase.description + "\n\n"
+        + "<b>Request Body:</b> \n" + toPrettyYaml.stringify(testCase.requestBody) + "\n\n"
+        + "<b>Expected Response Body:</b> \n" + toPrettyYaml.stringify(testCase.responseBody) + "\n\n"
+        + "<b>Actual Response Body:</b> \n" + toPrettyYaml.stringify(response.body.ResponseWrapperSendOtpDto)
+
       );
     });
   });

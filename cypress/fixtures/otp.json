@@ -2,6 +2,7 @@
   {
     "testCaseId": "50",
     "testCaseName": "Valid Request Data",
+    "description": "This test case checks the successful sending of an OTP with valid data. It sends a valid data example to the endpoint and expects that the OTP is sent successfully.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -16,13 +17,14 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "73d8acc9-beb2-4314-9852-cd35629d771a"
+        "identifier": "26a35217-b4c2-482b-8f07-43210376eca3"
       }
     }
   },
   {
     "testCaseId": "51",
     "testCaseName": "Send another request with same number/email",
+    "description": "This test case checks the successful sending of an OTP with valid data that were used before to request an OTP. It sends a valid data example to the endpoint and expects that the OTP is sent successfully. This is to check whether user can request the OTP twice with same personal information.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -37,13 +39,14 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "8f8a4587-50af-418a-9273-0716844ce603"
+        "identifier": "c00a35eb-f661-4bf4-8c6b-9e9f7e45dd8c"
       }
     }
   },
   {
     "testCaseId": "52",
     "testCaseName": "Sending empty request",
+    "description": "This test case checks the error response when sending an empty request. It sends an empty request to the endpoint and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {}
     },
@@ -58,6 +61,7 @@
   {
     "testCaseId": "53",
     "testCaseName": "Sending OTP without phone number, email",
+    "description": "This test case checks the error response when sending an OTP without providing a phone number or email. It sends a request with only customerId and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -76,6 +80,7 @@
   {
     "testCaseId": "54",
     "testCaseName": "Sending OTP without phone number",
+    "description": "This test case checks the error response when sending an OTP without providing a phone number. It sends a request with only email and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -95,6 +100,7 @@
   {
     "testCaseId": "55",
     "testCaseName": "Sending OTP w/ Local Phone Number w/o mail",
+    "description": "This test case checks the successful sending of an OTP with a local phone number and without providing an email. It sends a request with only phone number that is local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -108,13 +114,14 @@
       "data": {
         "phoneNumber": "+21643324080",
         "email": null,
-        "identifier": "17a67c51-950f-4477-bef9-f10275f2a84f"
+        "identifier": "acd09f35-d354-478e-9516-e4c80152db55"
       }
     }
   },
   {
     "testCaseId": "56",
     "testCaseName": "Sending OTP w/ Non-Local Phone Number w/o mail",
+    "description": "This test case checks the error response when sending an OTP with a non-local phone number and without providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -134,6 +141,7 @@
   {
     "testCaseId": "57",
     "testCaseName": "Sending OTP w/ Non-Local Phone Number w/ mail",
+    "description": "This test case checks the successful sending of an OTP with a non-local phone number and with providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -148,13 +156,14 @@
       "data": {
         "phoneNumber": "+216643324080",
         "email": "qa-adria@gmail.com",
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02"
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c"
       }
     }
   },
   {
     "testCaseId": "58",
     "testCaseName": "Sending OTP w/ Phone Number not respecting format w/ email",
+    "description": "This test case checks the error response when sending an OTP with a phone number that does not respect the format and with providing an email. It sends a request with a phone number that doesn't respect the format along with email and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -175,6 +184,7 @@
   {
     "testCaseId": "59",
     "testCaseName": "Phone number with special characters",
+    "description": "This test case checks the error response when sending an OTP with a phone number that contains special characters. It sends a request with a phone number that contains special characters and expects that the OTP is not sent.",
     "requestBody": {
       "sendOtpRequest": {
         "customerId": "00801975",
@@ -590,8 +600,8 @@
     "testCaseName": "Verify a valid OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8f8a4587-50af-418a-9273-0716844ce603",
-        "receivedOtp": "431374"
+        "identifier": "c00a35eb-f661-4bf4-8c6b-9e9f7e45dd8c",
+        "receivedOtp": "819430"
       }
     },
     "responseBody": {
@@ -624,8 +634,8 @@
     "testCaseName": "Verify an old OTP after creating another one",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "73d8acc9-beb2-4314-9852-cd35629d771a",
-        "receivedOtp": "608242"
+        "identifier": "26a35217-b4c2-482b-8f07-43210376eca3",
+        "receivedOtp": "568852"
       }
     },
     "responseBody": {
@@ -642,7 +652,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "1234",
-        "receivedOtp": "719865"
+        "receivedOtp": "095066"
       }
     },
     "responseBody": {
@@ -658,7 +668,7 @@
     "testCaseName": "Verify OTP with incorrect password",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
         "receivedOtp": "123456"
       }
     },
@@ -689,7 +699,7 @@
     "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
     "requestBody": {
       "verifyOtpRequest": {
-        "receivedOtp": "719865"
+        "receivedOtp": "095066"
       }
     },
     "responseBody": {
@@ -706,7 +716,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "?=/)àç_'\"{~#&",
-        "receivedOtp": "719865"
+        "receivedOtp": "095066"
       }
     },
     "responseBody": {
@@ -723,7 +733,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": "444444444aaaaaaaaaaaaaa4444444444aaaaaaaaaaa4444444444aaaaaaa",
-        "receivedOtp": "719865"
+        "receivedOtp": "095066"
       }
     },
     "responseBody": {
@@ -740,7 +750,7 @@
     "requestBody": {
       "verifyOtpRequest": {
         "identifier": 123456789,
-        "receivedOtp": "719865"
+        "receivedOtp": "095066"
       }
     },
     "responseBody": {
@@ -756,7 +766,7 @@
     "testCaseName": "Missing OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02"
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c"
       }
     },
     "responseBody": {
@@ -772,7 +782,7 @@
     "testCaseName": "Long OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
         "receivedOtp": "80118012801380148015801680178018801980204864864564847654654555555555555555555555555555555555555555"
       }
     },
@@ -789,7 +799,7 @@
     "testCaseName": "Invalid OTP format",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
         "receivedOtp": "ae53135"
       }
     },
@@ -806,7 +816,7 @@
     "testCaseName": "Numbered OTP",
     "requestBody": {
       "verifyOtpRequest": {
-        "identifier": "8a5525a7-f231-48b9-ad85-f1f966b22c02",
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
         "receivedOtp": 123456
       }
     },

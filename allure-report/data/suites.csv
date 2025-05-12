@@ -1,55 +1,208 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","282","TC-70 | Sending OTP with inexistant bank code","","Sat May 10 17:24:56 WEST 2025","passed","Sat May 10 17:24:56 WEST 2025","","/api/v1/otp/send test suite","",""
-"","319","TC-101 | Product code invalide","","Sat May 10 17:25:17 WEST 2025","passed","Sat May 10 17:25:17 WEST 2025","","/api/v1/contracts test suite","",""
-"","413","TC-57 | Sending OTP w/ Non-Local Phone Number w/ mail","","Sat May 10 17:24:50 WEST 2025","passed","Sat May 10 17:24:50 WEST 2025","","/api/v1/otp/send test suite","",""
-"","273","TC-59 | Phone number with special characters","","Sat May 10 17:24:51 WEST 2025","passed","Sat May 10 17:24:51 WEST 2025","","/api/v1/otp/send test suite","",""
-"","196","TC-69 | Sending OTP with missing bank code","","Sat May 10 17:24:56 WEST 2025","passed","Sat May 10 17:24:56 WEST 2025","","/api/v1/otp/send test suite","",""
-"","178","TC-56 | Sending OTP w/ Non-Local Phone Number w/o mail","","Sat May 10 17:24:49 WEST 2025","passed","Sat May 10 17:24:49 WEST 2025","","/api/v1/otp/send test suite","",""
-"","244","TC-74 | Sending OTP with missing language code","","Sat May 10 17:24:57 WEST 2025","passed","Sat May 10 17:24:58 WEST 2025","","/api/v1/otp/send test suite","",""
-"","501","TC-68 | Email with special characters","","Sat May 10 17:24:55 WEST 2025","failed","Sat May 10 17:24:55 WEST 2025","","/api/v1/otp/send test suite","",""
-"","568","TC-78 | Missing customerId","","Sat May 10 17:24:59 WEST 2025","failed","Sat May 10 17:24:59 WEST 2025","","/api/v1/otp/send test suite","",""
-"","134","TC-54 | Sending OTP without phone number","","Sat May 10 17:24:49 WEST 2025","passed","Sat May 10 17:24:49 WEST 2025","","/api/v1/otp/send test suite","",""
-"","49","TC-89 | Numbered identifier (not string)","","Sat May 10 17:25:05 WEST 2025","passed","Sat May 10 17:25:06 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","324","TC-85 | Verify an empty OTP request","","Sat May 10 17:25:04 WEST 2025","failed","Sat May 10 17:25:05 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","217","TC-72 | Bank code not string","","Sat May 10 17:24:57 WEST 2025","passed","Sat May 10 17:24:57 WEST 2025","","/api/v1/otp/send test suite","",""
-"","921","TC-96 | Create contract with a client that have an entreprise segment","","Sat May 10 17:25:10 WEST 2025","passed","Sat May 10 17:25:11 WEST 2025","","/api/v1/contracts test suite","",""
-"","182","TC-75 | Language code w/ special characters","","Sat May 10 17:24:58 WEST 2025","passed","Sat May 10 17:24:58 WEST 2025","","/api/v1/otp/send test suite","",""
-"","313","TC-106 | Invalid currency for beneficiary","","Sat May 10 17:25:19 WEST 2025","failed","Sat May 10 17:25:19 WEST 2025","","/api/v1/contracts test suite","",""
-"","217","TC-76 | Language code not a string","","Sat May 10 17:24:58 WEST 2025","passed","Sat May 10 17:24:58 WEST 2025","","/api/v1/otp/send test suite","",""
-"","241","TC-73 | Long bank code","","Sat May 10 17:24:57 WEST 2025","passed","Sat May 10 17:24:57 WEST 2025","","/api/v1/otp/send test suite","",""
-"","216","TC-52 | Sending empty request","","Sat May 10 17:24:48 WEST 2025","passed","Sat May 10 17:24:48 WEST 2025","","/api/v1/otp/send test suite","",""
-"","699","TC-99 | Action parameter missing","","Sat May 10 17:25:16 WEST 2025","failed","Sat May 10 17:25:17 WEST 2025","","/api/v1/contracts test suite","",""
-"","230","TC-79 | Long language code","","Sat May 10 17:24:59 WEST 2025","passed","Sat May 10 17:25:00 WEST 2025","","/api/v1/otp/send test suite","",""
-"","188","TC-53 | Sending OTP without phone number, email","","Sat May 10 17:24:48 WEST 2025","passed","Sat May 10 17:24:49 WEST 2025","","/api/v1/otp/send test suite","",""
-"","372","TC-103 | RIB Beneficiary Invalid","","Sat May 10 17:25:17 WEST 2025","passed","Sat May 10 17:25:18 WEST 2025","","/api/v1/contracts test suite","",""
-"","84","TC-87 | Identifier w/ special characters","","Sat May 10 17:25:05 WEST 2025","passed","Sat May 10 17:25:05 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","599","TC-64 | Email without @","","Sat May 10 17:24:52 WEST 2025","failed","Sat May 10 17:24:53 WEST 2025","","/api/v1/otp/send test suite","",""
-"","651","TC-65 | Email w/ more @","","Sat May 10 17:24:53 WEST 2025","failed","Sat May 10 17:24:54 WEST 2025","","/api/v1/otp/send test suite","",""
-"","151","TC-91 | Long OTP","","Sat May 10 17:25:06 WEST 2025","passed","Sat May 10 17:25:06 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","211","TC-77 | Inexistant language code","","Sat May 10 17:24:58 WEST 2025","passed","Sat May 10 17:24:59 WEST 2025","","/api/v1/otp/send test suite","",""
-"","690","TC-105 | Update with a customerId doesn't exist","","Sat May 10 17:25:18 WEST 2025","failed","Sat May 10 17:25:19 WEST 2025","","/api/v1/contracts test suite","",""
-"","99","TC-80 | Verify OTP with valid data","","Sat May 10 17:25:03 WEST 2025","passed","Sat May 10 17:25:03 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","46","TC-84 | Verify OTP with incorrect password","","Sat May 10 17:25:04 WEST 2025","passed","Sat May 10 17:25:04 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","563","TC-67 | Email not string","","Sat May 10 17:24:54 WEST 2025","failed","Sat May 10 17:24:55 WEST 2025","","/api/v1/otp/send test suite","",""
-"","424","TC-63 | Phone number not string","","Sat May 10 17:24:52 WEST 2025","failed","Sat May 10 17:24:52 WEST 2025","","/api/v1/otp/send test suite","",""
-"","198","TC-61 | Short phone number","","Sat May 10 17:24:51 WEST 2025","passed","Sat May 10 17:24:52 WEST 2025","","/api/v1/otp/send test suite","",""
-"","323","TC-90 | Verify OTP with missing OTP","","Sat May 10 17:25:06 WEST 2025","failed","Sat May 10 17:25:06 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","326","TC-55 | Sending OTP w/ Local Phone Number w/o mail","","Sat May 10 17:24:49 WEST 2025","passed","Sat May 10 17:24:49 WEST 2025","","/api/v1/otp/send test suite","",""
-"","445","TC-51 | Send another request with same number/email","","Sat May 10 17:24:48 WEST 2025","passed","Sat May 10 17:24:48 WEST 2025","","/api/v1/otp/send test suite","",""
-"","104","TC-100 | Missing customerId","","Sat May 10 17:25:17 WEST 2025","passed","Sat May 10 17:25:17 WEST 2025","","/api/v1/contracts test suite","",""
-"","328","TC-86 | Verify OTP with missing identifier","","Sat May 10 17:25:05 WEST 2025","failed","Sat May 10 17:25:05 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","532","TC-81 | Verify OTP with expired OTP","","Sat May 10 17:25:03 WEST 2025","failed","Sat May 10 17:25:04 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","336","TC-82 | Verify an old OTP after creating a new one","","Sat May 10 17:25:04 WEST 2025","failed","Sat May 10 17:25:04 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","202","TC-62 | Alphanumeric phone number","","Sat May 10 17:24:52 WEST 2025","passed","Sat May 10 17:24:52 WEST 2025","","/api/v1/otp/send test suite","",""
-"","238","TC-71 | Bank code w/ special characters","","Sat May 10 17:24:56 WEST 2025","passed","Sat May 10 17:24:57 WEST 2025","","/api/v1/otp/send test suite","",""
-"","101","TC-102 | Product code missing","","Sat May 10 17:25:17 WEST 2025","passed","Sat May 10 17:25:17 WEST 2025","","/api/v1/contracts test suite","",""
-"","81","TC-92 | Invalid OTP format","","Sat May 10 17:25:06 WEST 2025","passed","Sat May 10 17:25:06 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","164","TC-104 | Invalid action parameter","","Sat May 10 17:25:18 WEST 2025","passed","Sat May 10 17:25:18 WEST 2025","","/api/v1/contracts test suite","",""
-"","54","TC-88 | Long identifier","","Sat May 10 17:25:05 WEST 2025","passed","Sat May 10 17:25:05 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","223","TC-60 | Long phone number","","Sat May 10 17:24:51 WEST 2025","passed","Sat May 10 17:24:51 WEST 2025","","/api/v1/otp/send test suite","",""
-"","69","TC-83 | Verify OTP with nonexistent identifier","","Sat May 10 17:25:04 WEST 2025","passed","Sat May 10 17:25:04 WEST 2025","","/api/v1/otp/verify test suite","",""
-"","325","TC-107 | Create contract with an unverified customer","","Sat May 10 17:25:19 WEST 2025","failed","Sat May 10 17:25:19 WEST 2025","","/api/v1/contracts test suite","",""
-"","2823","TC-50 | Send a request for OTP with valid data","","Sat May 10 17:24:45 WEST 2025","passed","Sat May 10 17:24:48 WEST 2025","","/api/v1/otp/send test suite","",""
-"","220","TC-66 | Long email","","Sat May 10 17:24:54 WEST 2025","passed","Sat May 10 17:24:54 WEST 2025","","/api/v1/otp/send test suite","",""
-"","5119","TC-97 | Create contract with a client that already has a contract","","Sat May 10 17:25:11 WEST 2025","failed","Sat May 10 17:25:16 WEST 2025","","/api/v1/contracts test suite","",""
-"","622","TC-58 | Sending OTP w/ Phone Number not respecting form w/ email","","Sat May 10 17:24:50 WEST 2025","failed","Sat May 10 17:24:51 WEST 2025","","/api/v1/otp/send test suite","",""
+"","449","TC-99 | Action parameter missing","","Mon May 12 09:18:43 WEST 2025","failed","Mon May 12 09:18:44 WEST 2025","","/api/v1/contracts test suite","",""
+"This test case checks the error response when sending an OTP with a non-local phone number and without providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is not sent.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+212643324080""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""ERROR""
+error:
+  code: ""ERR_OTP_0001""
+  message: ""Failed to send OTP. Please try again.""
+
+Actual Response Body: null
+","83","TC-56 | Sending OTP w/ Non-Local Phone Number w/o mail","","Mon May 12 09:24:07 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"This test case checks the error response when sending an OTP without providing a phone number or email. It sends a request with only customerId and expects that the OTP is not sent.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""ERROR""
+error:
+  code: ""ERR_OTP_0001""
+  message: ""Failed to send OTP. Please try again.""
+
+Actual Response Body: null
+","86","TC-53 | Sending OTP without phone number, email","","Mon May 12 09:24:07 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"This test case checks the error response when sending an OTP with a phone number that contains special characters. It sends a request with a phone number that contains special characters and expects that the OTP is not sent.
+
+<b>Request Body:</b> 
+sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+12$3456""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+
+<b>Expected Response Body:</b> 
+status: ""ERROR""
+error:
+  code: ""ERR_OTP_0001""
+  message: ""Failed to send OTP. Please try again.""
+
+
+<b>Actual Response Body:</b> 
+null
+","105","TC-59 | Phone number with special characters","","Mon May 12 09:24:08 WEST 2025","passed","Mon May 12 09:24:08 WEST 2025","","/api/v1/otp/send test suite","",""
+"","112","TC-72 | Bank code not string","","Mon May 12 09:24:12 WEST 2025","passed","Mon May 12 09:24:12 WEST 2025","","/api/v1/otp/send test suite","",""
+"","95","TC-61 | Short phone number","","Mon May 12 09:24:09 WEST 2025","passed","Mon May 12 09:24:09 WEST 2025","","/api/v1/otp/send test suite","",""
+"","91","TC-75 | Language code w/ special characters","","Mon May 12 09:24:13 WEST 2025","passed","Mon May 12 09:24:13 WEST 2025","","/api/v1/otp/send test suite","",""
+"","36","TC-84 | Verify OTP with incorrect password","","Mon May 12 09:24:17 WEST 2025","passed","Mon May 12 09:24:17 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","63","TC-74 | Sending OTP with missing language code","","Mon May 12 09:24:12 WEST 2025","passed","Mon May 12 09:24:13 WEST 2025","","/api/v1/otp/send test suite","",""
+"","420","TC-63 | Phone number not string","","Mon May 12 09:24:09 WEST 2025","failed","Mon May 12 09:24:09 WEST 2025","","/api/v1/otp/send test suite","",""
+"","1410","TC-97 | Create contract with a client that already has a contract","","Mon May 12 09:18:42 WEST 2025","failed","Mon May 12 09:18:43 WEST 2025","","/api/v1/contracts test suite","",""
+"This test case checks the successful sending of an OTP with valid data. It sends a valid data example to the endpoint and expects that the OTP is sent successfully.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+21643324080""
+  email: ""qa-adria@gmail.com""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""SUCCESS""
+data:
+  phoneNumber: ""+21643324080""
+  email: ""qa-adria@gmail.com""
+  identifier: ""4b956634-61f4-431f-bbe9-0ac8c1da5685""
+
+Actual Response Body: status: ""SUCCESS""
+message: ""OTP sent successfully.""
+codeMessage: ""SUCCESS_OTP_001""
+data:
+  identifier: ""26a35217-b4c2-482b-8f07-43210376eca3""
+  email: ""qa-adria@gmail.com""
+  phoneNumber: ""+21643324080""
+timestamp: ""2025-05-12T09:24:06.700+01:00""
+","276","TC-50 | Send a request for OTP with valid data","","Mon May 12 09:24:06 WEST 2025","passed","Mon May 12 09:24:06 WEST 2025","","/api/v1/otp/send test suite","",""
+"","63","TC-102 | Product code missing","","Mon May 12 09:18:44 WEST 2025","passed","Mon May 12 09:18:44 WEST 2025","","/api/v1/contracts test suite","",""
+"","168","TC-90 | Verify OTP with missing OTP","","Mon May 12 09:24:18 WEST 2025","failed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","91","TC-66 | Long email","","Mon May 12 09:24:10 WEST 2025","passed","Mon May 12 09:24:10 WEST 2025","","/api/v1/otp/send test suite","",""
+"","315","TC-78 | Missing customerId","","Mon May 12 09:24:13 WEST 2025","failed","Mon May 12 09:24:14 WEST 2025","","/api/v1/otp/send test suite","",""
+"","36","TC-80 | Verify OTP with valid data","","Mon May 12 09:24:16 WEST 2025","passed","Mon May 12 09:24:16 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","65","TC-100 | Missing customerId","","Mon May 12 09:18:44 WEST 2025","passed","Mon May 12 09:18:44 WEST 2025","","/api/v1/contracts test suite","",""
+"","35","TC-87 | Identifier w/ special characters","","Mon May 12 09:24:18 WEST 2025","passed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","53","TC-104 | Invalid action parameter","","Mon May 12 09:18:44 WEST 2025","passed","Mon May 12 09:18:45 WEST 2025","","/api/v1/contracts test suite","",""
+"","221","TC-106 | Invalid currency for beneficiary","","Mon May 12 09:18:45 WEST 2025","failed","Mon May 12 09:18:45 WEST 2025","","/api/v1/contracts test suite","",""
+"","81","TC-77 | Inexistant language code","","Mon May 12 09:24:13 WEST 2025","passed","Mon May 12 09:24:13 WEST 2025","","/api/v1/otp/send test suite","",""
+"","82","TC-76 | Language code not a string","","Mon May 12 09:24:13 WEST 2025","passed","Mon May 12 09:24:13 WEST 2025","","/api/v1/otp/send test suite","",""
+"","179","TC-82 | Verify an old OTP after creating a new one","","Mon May 12 09:24:16 WEST 2025","failed","Mon May 12 09:24:17 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","260","TC-96 | Create contract with a client that have an entreprise segment","","Mon May 12 09:18:41 WEST 2025","passed","Mon May 12 09:18:42 WEST 2025","","/api/v1/contracts test suite","",""
+"","191","TC-86 | Verify OTP with missing identifier","","Mon May 12 09:24:17 WEST 2025","failed","Mon May 12 09:24:17 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","41","TC-83 | Verify OTP with nonexistent identifier","","Mon May 12 09:24:17 WEST 2025","passed","Mon May 12 09:24:17 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","495","TC-105 | Update with a customerId doesn't exist","","Mon May 12 09:18:45 WEST 2025","failed","Mon May 12 09:18:45 WEST 2025","","/api/v1/contracts test suite","",""
+"This test case checks the successful sending of an OTP with valid data that were used before to request an OTP. It sends a valid data example to the endpoint and expects that the OTP is sent successfully. This is to check whether user can request the OTP twice with same personal information.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+21643324080""
+  email: ""qa-adria@gmail.com""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""SUCCESS""
+data:
+  phoneNumber: ""+21643324080""
+  email: ""qa-adria@gmail.com""
+  identifier: ""3c4a52ca-d21f-47b7-bfed-7c8ca86c246d""
+
+Actual Response Body: status: ""SUCCESS""
+message: ""OTP sent successfully.""
+codeMessage: ""SUCCESS_OTP_001""
+data:
+  identifier: ""c00a35eb-f661-4bf4-8c6b-9e9f7e45dd8c""
+  email: ""qa-adria@gmail.com""
+  phoneNumber: ""+21643324080""
+timestamp: ""2025-05-12T09:24:07.026+01:00""
+","209","TC-51 | Send another request with same number/email","","Mon May 12 09:24:06 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"","59","TC-91 | Long OTP","","Mon May 12 09:24:18 WEST 2025","passed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","93","TC-71 | Bank code w/ special characters","","Mon May 12 09:24:12 WEST 2025","passed","Mon May 12 09:24:12 WEST 2025","","/api/v1/otp/send test suite","",""
+"","94","TC-79 | Long language code","","Mon May 12 09:24:14 WEST 2025","passed","Mon May 12 09:24:14 WEST 2025","","/api/v1/otp/send test suite","",""
+"This test case checks the error response when sending an OTP without providing a phone number. It sends a request with only email and expects that the OTP is not sent.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  email: ""qa-adria@gmail.com""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""ERROR""
+error:
+  code: ""ERR_OTP_0001""
+  message: ""Failed to send OTP. Please try again.""
+
+Actual Response Body: null
+","71","TC-54 | Sending OTP without phone number","","Mon May 12 09:24:07 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"","29","TC-89 | Numbered identifier (not string)","","Mon May 12 09:24:18 WEST 2025","passed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","278","TC-103 | RIB Beneficiary Invalid","","Mon May 12 09:18:44 WEST 2025","passed","Mon May 12 09:18:44 WEST 2025","","/api/v1/contracts test suite","",""
+"This test case checks the successful sending of an OTP with a local phone number and without providing an email. It sends a request with only phone number that is local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+21643324080""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""SUCCESS""
+data:
+  phoneNumber: ""+21643324080""
+  email: null
+  identifier: ""9a961dba-f37b-4b19-878e-bf7884945ac9""
+
+Actual Response Body: status: ""SUCCESS""
+message: ""OTP sent successfully.""
+codeMessage: ""SUCCESS_OTP_001""
+data:
+  identifier: ""acd09f35-d354-478e-9516-e4c80152db55""
+  email: null
+  phoneNumber: ""+21643324080""
+timestamp: ""2025-05-12T09:24:07.767+01:00""
+","168","TC-55 | Sending OTP w/ Local Phone Number w/o mail","","Mon May 12 09:24:07 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"","278","TC-65 | Email w/ more @","","Mon May 12 09:24:10 WEST 2025","failed","Mon May 12 09:24:10 WEST 2025","","/api/v1/otp/send test suite","",""
+"","159","TC-85 | Verify an empty OTP request","","Mon May 12 09:24:17 WEST 2025","failed","Mon May 12 09:24:17 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","235","TC-101 | Product code invalide","","Mon May 12 09:18:44 WEST 2025","passed","Mon May 12 09:18:44 WEST 2025","","/api/v1/contracts test suite","",""
+"","109","TC-73 | Long bank code","","Mon May 12 09:24:12 WEST 2025","passed","Mon May 12 09:24:12 WEST 2025","","/api/v1/otp/send test suite","",""
+"","285","TC-81 | Verify OTP with expired OTP","","Mon May 12 09:24:16 WEST 2025","failed","Mon May 12 09:24:16 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","94","TC-69 | Sending OTP with missing bank code","","Mon May 12 09:24:11 WEST 2025","passed","Mon May 12 09:24:11 WEST 2025","","/api/v1/otp/send test suite","",""
+"","78","TC-60 | Long phone number","","Mon May 12 09:24:08 WEST 2025","passed","Mon May 12 09:24:09 WEST 2025","","/api/v1/otp/send test suite","",""
+"","81","TC-70 | Sending OTP with inexistant bank code","","Mon May 12 09:24:12 WEST 2025","passed","Mon May 12 09:24:12 WEST 2025","","/api/v1/otp/send test suite","",""
+"","279","TC-67 | Email not string","","Mon May 12 09:24:11 WEST 2025","failed","Mon May 12 09:24:11 WEST 2025","","/api/v1/otp/send test suite","",""
+"","429","TC-58 | Sending OTP w/ Phone Number not respecting form w/ email","","Mon May 12 09:24:08 WEST 2025","failed","Mon May 12 09:24:08 WEST 2025","","/api/v1/otp/send test suite","",""
+"","246","TC-107 | Create contract with an unverified customer","","Mon May 12 09:18:45 WEST 2025","failed","Mon May 12 09:18:46 WEST 2025","","/api/v1/contracts test suite","",""
+"","84","TC-62 | Alphanumeric phone number","","Mon May 12 09:24:09 WEST 2025","passed","Mon May 12 09:24:09 WEST 2025","","/api/v1/otp/send test suite","",""
+"This test case checks the error response when sending an empty request. It sends an empty request to the endpoint and expects that the OTP is not sent.
+Request Body: sendOtpRequest: {}
+
+Expected Response Body: status: ""ERROR""
+error:
+  code: ""ERR_OTP_0001""
+  message: ""Failed to send OTP. Please try again.""
+
+Actual Response Body: null
+","66","TC-52 | Sending empty request","","Mon May 12 09:24:07 WEST 2025","passed","Mon May 12 09:24:07 WEST 2025","","/api/v1/otp/send test suite","",""
+"","44","TC-92 | Invalid OTP format","","Mon May 12 09:24:18 WEST 2025","passed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"","269","TC-68 | Email with special characters","","Mon May 12 09:24:11 WEST 2025","failed","Mon May 12 09:24:11 WEST 2025","","/api/v1/otp/send test suite","",""
+"","34","TC-88 | Long identifier","","Mon May 12 09:24:18 WEST 2025","passed","Mon May 12 09:24:18 WEST 2025","","/api/v1/otp/verify test suite","",""
+"This test case checks the successful sending of an OTP with a non-local phone number and with providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.
+Request Body: sendOtpRequest:
+  customerId: ""00801975""
+  phoneNumber: ""+216643324080""
+  email: ""qa-adria@gmail.com""
+  bankCode: ""00004""
+  languageCode: ""fr""
+
+Expected Response Body: status: ""SUCCESS""
+data:
+  phoneNumber: ""+216643324080""
+  email: ""qa-adria@gmail.com""
+  identifier: ""4e871c20-cefa-4900-a869-59bf66c3cae6""
+
+Actual Response Body: status: ""SUCCESS""
+message: ""OTP sent successfully.""
+codeMessage: ""SUCCESS_OTP_001""
+data:
+  identifier: ""020613b1-8499-4951-bb7b-b396a7730c5c""
+  email: ""qa-adria@gmail.com""
+  phoneNumber: ""+216643324080""
+timestamp: ""2025-05-12T09:24:08.171+01:00""
+","156","TC-57 | Sending OTP w/ Non-Local Phone Number w/ mail","","Mon May 12 09:24:08 WEST 2025","passed","Mon May 12 09:24:08 WEST 2025","","/api/v1/otp/send test suite","",""
+"","319","TC-64 | Email without @","","Mon May 12 09:24:10 WEST 2025","failed","Mon May 12 09:24:10 WEST 2025","","/api/v1/otp/send test suite","",""
