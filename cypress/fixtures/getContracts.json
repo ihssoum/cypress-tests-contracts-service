@@ -1,0 +1,16 @@
+[
+  {
+    "testCaseId": "124",
+    "testCaseName": "Get contract By a valid id",
+    "api": "api/v1/contracts/773297",
+    "status": "SUCCESS",
+    "message": "The contract instance has been successfully retrieved.",
+    "codeMessage": "SUCCESS_CTR_0004",
+    "method": "GET",
+    "statusCode": 200,
+    "queryParams": {
+      "id": 773297
+    },
+    "responseBody": {}
+  }
+]

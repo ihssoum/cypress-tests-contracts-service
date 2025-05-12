@@ -44,30 +44,55 @@ Cypress.Commands.add("fetchContracts", () => {
     }
   );
 });
-Cypress.Commands.add("fetchContractById", (contractId) => {
-  const client = "abt";
+Cypress.Commands.add("fetchContractById", (client = "abt") => {
+  cy.request({
+    method: 'GET',
+    url: `http://localhost:3000/contracts-id?client=${client}`,
+    failOnStatusCode: false
+  }).then((apiResponse) => {
+    // Vérifier le statut
+    expect([200, 304]).to.include(apiResponse.status);
+    
+    // Traiter la réponse...
+    const apiData = Array.isArray(apiResponse.body) 
+      ? apiResponse.body 
+      : [apiResponse.body];
+    
+    cy.log("Fetched API Data:", apiData);
 
-  cy.request(`http://localhost:3000/contracts/by-id/${contractId}?client=${client}`)
-    .then((response) => {
-      const contractData = response.body;
-
-      cy.fixture("getContractByIdResponseSchema.json").then((contracts) => {
-        const updatedContracts = contracts.map((contract) => {
-          // If this contract matches the requested ID, update its responseBody
-          if (
-            contract.queryParams &&
-            Number(contract.queryParams.id) === Number(contractId)
-          ) {
+    cy.fixture("getContractByIdResponseSchema.json").then((contracts) => {
+      const updatedContracts = contracts.map((contract) => {
+        if (
+          contract.queryParams &&
+          typeof contract.queryParams.id !== "undefined"
+        ) {
+          // Look for contractInstance.id instead of just id
+          const contractData = apiData.find(
+            (item) => item.contractInstance && 
+                     item.contractInstance.id === Number(contract.queryParams.id)
+          );
+          
+          if (contractData) {
             contract.responseBody = contractData;
+            cy.log(`Matched ID ${contract.queryParams.id}:`, contractData);
+          } else {
+            cy.log(`No match found for ID: ${contract.queryParams.id}`);
+            // Log additional debug info
+            cy.log("Available IDs:", apiData.map(item => 
+              item.contractInstance ? item.contractInstance.id : "no contractInstance"
+            ));
           }
-          return contract;
-        });
+        }
+        return contract;
+      });
 
-        cy.task("writeFile", {
-          filePath: "getContracts.json",
-          content: JSON.stringify(updatedContracts, null, 2),
-        });
+      cy.log("Final updated contracts:", updatedContracts);
+
+      // Utiliser seulement le nom du fichier, sans le chemin
+      cy.task("writeFile", {
+        filePath: "getContractByIdResponseSchema.json",
+        content: JSON.stringify(updatedContracts, null, 2),
       });
     });
+  });
 });
-
