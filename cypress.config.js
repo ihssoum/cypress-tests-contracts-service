@@ -7,7 +7,7 @@ module.exports = defineConfig({
     env: {
       fixturesPath:
         "C:/Users/pc/Documents/Adria-QA/adria-dataprovider-service-cy/cypress-tests-contracts-service/cypress/fixtures",
-      getContractsUrl: "http://192.168.8.137:8030",
+      getContractsUrl: "http://192.168.145.209:8030",
     },
     setupNodeEvents(on, config) {
       on("task", {
@@ -23,4 +23,5 @@ module.exports = defineConfig({
       });
     },
   },
+ 
 });

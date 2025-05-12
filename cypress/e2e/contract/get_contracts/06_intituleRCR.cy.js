@@ -1,56 +1,111 @@
-describe("GET /api/v1/contracts - Recherche par intitulé RCR", () => {
-  it("should return contracts for valid intituleRCR", () => {
-    const intituleRCR = "Insurance Policy"; // Intitulé RCR valide
-    const expectedContracts = [
-      //les contrats avec l'intitule RCR mentionne
-    ];
-    cy.request({
-      method: "GET",
-      url: `${api}?intituleRCR=${intituleRCR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      expect(res.body.status).to.equal("SUCCESS");
-      expect(res.body.data.content).to.be.an("array");
-      // Vérifier que chaque contrat contient l'intitulé RCR attendu
-      /*res.body.data.content.forEach((contract) => {
-        expect(contract.intituleRCR).to.equal(intituleRCR);
-      });*/
-      expectedContracts.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
+describe("GET /api/v1/contracts - Recherche par intituleRCR", () => {
+  beforeEach(function () {
+    cy.fetchContracts();
+    cy.fixture("getContracts.json").as("contractsData");
+    cy.getToken();
+  });
+
+  const url = Cypress.env("getContractsUrl");
+
+  it("TC43 | should return 200 and contracts for valid intituleRCR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "43");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(
+          "array"
+        );
+
+        testCase.responseBody.forEach((expectedContract, index) => {
+          const actualContract =
+            res.body.ResponseWrapperContractListDto.data.content[index];
+          expect(actualContract).to.deep.include(expectedContract);
+          expect(actualContract).to.have.property(
+            "commercialRelationTitle",
+            testCase.queryParams.commercialRelationTitle
+          );
+        });
       });
     });
   });
 
-  it("should return 404 for non-existent intituleRCR", () => {
-    const intituleRCR = "Unknown Title"; // Intitulé RCR inexistant
-    cy.request({
-      method: "GET",
-      url: `${api}?intituleRCR=${intituleRCR}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(404);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.error.code).to.equal("ERR_GENERAL_0004");
-      expect(res.body.error.message).to.equal(
-        "The requested resource was not found."
-      );
+  it("TC44 | should return 200 and an empty list for a non-existent intituleRCR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "37");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(
+          res.body.ResponseWrapperContractListDto.data.content
+        ).to.have.length(0);
+      });
     });
   });
 
-  it("should return 400 for intituleRCR too long", () => {
-    const intituleRCR = "A".repeat(256); // Intitulé RCR trop long (256 caractères)
-    cy.request({
-      method: "GET",
-      url: `${api}?intituleRCR=${intituleRCR}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.codeMessage).to.equal("ERR_GENERAL_0002");
-      expect(res.body.error.message).to.equal("Invalid data format.");
+  it("TC45 | should return 400 for too long intituleRCR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "45");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.error.code).to.eq(
+          testCase.responseBody.code
+        );
+        expect(res.body.ResponseWrapperContractListDto.error.message).to.eq(
+          testCase.responseBody.message
+        );
+      });
+    });
+  });
+  it("TC46 | should return 400 when intituleRCR is not a string", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "46");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.error.code).to.eq(
+          testCase.responseBody.code
+        );
+        expect(res.body.ResponseWrapperContractListDto.error.message).to.eq(
+          testCase.responseBody.message
+        );
+      });
     });
   });
 });

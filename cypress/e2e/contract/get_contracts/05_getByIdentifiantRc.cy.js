@@ -1,65 +1,170 @@
 describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
-  it("should return contracts for valid identifiantRC", () => {
-    const identifiantRC = "2755966"; // Identifiant RC valide
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantRC=${identifiantRC}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      expect(res.body.status).to.equal("SUCCESS");
-      expect(res.body.data.content).to.be.an("array");
-      // Vérifier qu'un contrat contient l'identifiant RC attendu
-      res.body.data.content.forEach((contract) => {
-        expect(contract.commercialRelationIdentifier).to.equal(identifiantRC);
+  beforeEach(function () {
+    cy.fetchContracts();
+    cy.fixture("getContracts.json").as("contractsData");
+    cy.getToken();
+  });
+
+  const url = Cypress.env("getContractsUrl");
+
+  it("TC36 | should return 200 and a list of contracts for valid identifiantRC", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "36");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(
+          "array"
+        );
+
+        testCase.responseBody.forEach((expectedContract, index) => {
+          const actualContract =
+            res.body.ResponseWrapperContractListDto.data.content[index];
+          expect(actualContract).to.deep.include(expectedContract);
+          expect(actualContract).to.have.property(
+            "commercialRelationIdentifier",
+            testCase.queryParams.contractIdentifier
+          );
+        });
       });
     });
   });
 
-  it("should return 400 for invalid identifiantRC with special characters", () => {
-    const identifiantRC = "12@456"; // Identifiant RC invalide avec des caractères spéciaux
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantRC=${identifiantRC}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.codeMessage).to.equal("ERR_GENERAL_0002");
-      expect(res.body.error.message).to.equal("Invalid data format.");
+  it("TC37 | should return 200 and an empty list for non-existent identifiantRC", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "37");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(
+          res.body.ResponseWrapperContractListDto.data.content
+        ).to.have.length(0);
+      });
     });
   });
 
-  it("should return 400 for identifiantRC too long", () => {
-    const identifiantRC = "1234567808760887565433255789"; // Identifiant RC trop long
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantRC=${identifiantRC}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.codeMessage).to.equal("ERR_GENERAL_0002");
-      expect(res.body.error.message).to.equal("Invalid data format.");
+  it("TC38 | should return 400 for malformed identifiantRC", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "38");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          code: testCase.responseBody.code,
+          message: testCase.responseBody.message,
+        });
+      });
+    });
+  });
+it("TC39 | should return 400 for special characters in identifiantRC", () => {
+    cy.get("@authToken").then(function (token) {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "39");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.deep.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          code: testCase.responseBody.code,
+          message: testCase.responseBody.message,
+        });
+      });
+    });
+  });
+  it("TC40 | should return 400 for long code in identifiantRC (more than 7 numbers)", () => {
+    cy.get("@authToken").then(function (token) {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "40");
+      cy.request({
+        method: "GET",
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          code: testCase.responseBody.code,
+          message: testCase.responseBody.message,
+        });
+      });
+    });
+  });
+  it("TC41 | should return 400 for boolean value in identifiantRC", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "41");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          code: testCase.responseBody.code,
+          message: testCase.responseBody.message,
+        });
+      });
     });
   });
 
-  it("should return 404 for non-existent identifiantRC", () => {
-    const identifiantRC = "999999"; // Identifiant RC inexistant
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantRC=${identifiantRC}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(404);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.error.code).to.equal("ERR_GENERAL_0004");
-      expect(res.body.error.message).to.equal(
-        "The requested resource was not found."
-      );
+  it("TC42 | should return all contracts when identifiantRC is empty", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "42");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(
+          "array"
+        );
+      });
     });
   });
 });

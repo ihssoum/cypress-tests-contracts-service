@@ -1,55 +1,63 @@
-describe("GET /api/v1/contracts - Code Banque", () => {
-  const headers = { Authorization: token };
+describe("GET /api/v1/contracts - Recherche par codeBanque", () => {
+  beforeEach(function () {
+    cy.fetchContracts();
+    cy.fixture("getContracts.json").as("contractsData");
+    cy.getToken();
+  });
 
-  // Cas du Code Banque valide
-  it("code banque valide - 00004", () => {
-    const codeBanque = "00004";
-    cy.request({
-      method: "GET",
-      url: `${api}?codeBanque=${codeBanque}`,
-      headers,
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      expect(res.body.status).to.eq("SUCCESS");
-      expect(res.body.data.content).to.be.an("array");
-      expect(res.body.data.content[0]).to.have.property(
-        "associatedBankCode",
-        "00004"
-      );
+  const url = Cypress.env("getContractsUrl");
+
+  it("TC62 | should return 200 and contracts for valid codeBanque", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "62");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(testCase.status);
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an("array");
+
+        testCase.responseBody.forEach((expectedContract, index) => {
+          const actual = res.body.ResponseWrapperContractListDto.data.content[index];
+          expect(actual).to.deep.include(expectedContract);
+          expect(actual.codeBanque).to.eq(testCase.queryParams.codeBanque);
+        });
+      });
     });
   });
 
-  // Cas du Code Banque inexistant
-  it("code banque inexistant - 12345", () => {
-    const codeBanque = "12345";
-    cy.request({
-      method: "GET",
-      url: `${api}?codeBanque=${codeBanque}`,
-      headers,
-      failOnStatusCode: false, // éviter que Cypress échoue si erreur
-    }).then((res) => {
-      expect(res.status).to.eq(404);
-      expect(res.body.status).to.eq("ERROR");
-      expect(res.body.error.code).to.eq("ERR_GENERAL_0004");
-      expect(res.body.error.message).to.eq(
-        "The requested resource was not found."
-      );
+  it("TC63 | should return 200 and empty list for non-existent codeBanque", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "63");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(testCase.status);
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.have.length(0);
+      });
     });
   });
 
-  // Cas du Code Banque invalide
-  it("code banque invalide - 12345", () => {
-    const codeBanque = "12345"; // code invalide avec un mauvais format
-    cy.request({
-      method: "GET",
-      url: `${api}?codeBanque=${codeBanque}`,
-      headers,
-      failOnStatusCode: false, // éviter que Cypress échoue si erreur
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body.status).to.eq("ERROR");
-      expect(res.body.codeMessage).to.eq("ERR_GENERAL_0002");
-      expect(res.body.error.message).to.eq("Invalid data format.");
+  it("TC64 | should return 400 when codeBanque is a string", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "64");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(testCase.status);
+        expect(res.body.ResponseWrapperContractListDto.error.code).to.eq(testCase.responseBody.code);
+        expect(res.body.ResponseWrapperContractListDto.error.message).to.eq(testCase.responseBody.message);
+      });
     });
   });
 });

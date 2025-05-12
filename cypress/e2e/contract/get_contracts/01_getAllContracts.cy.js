@@ -26,11 +26,11 @@ describe("Get all contracts", () => {
           "array"
         );
         expect(res.body.ResponseWrapperContractListDto).to.include({
-          status: "SUCCESS",
+          status: testCase.status,
         });
         expect(res.body.ResponseWrapperContractListDto).to.include({
-          message: "The list has been retrieved successfully.",
-          codeMessage: "SUCCESS_CTR_0003",
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
         });
         // Vérifie chaque contrat
         testCase.responseBody.forEach((expectedContract, index) => {

@@ -1,162 +1,267 @@
-import { api, token } from "../support/config";
+describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscriptionMinR", () => {
+  beforeEach(function () {
+    cy.getToken();
+    cy.fetchContractsBySubscriptionDate();
+    cy.fixture("getContractsBysubscriptionDate.json").as("contractsData");
+  });
+  const url = Cypress.env("getContractsUrl");
+  it("TC25 | should return 200 and a list of contracts for valid dateSouscriptionMaxR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "25");
 
-describe("GET /api/v1/contracts - Recherche par dateSouscriptionMaxR et dateSouscriptionMinR", () => {
-  const AllContracts = [];
-  it("should return 200 for valid dateSouscriptionMaxR", () => {
-    const dateSouscriptionMaxR = "2024-12-31";
-    const expectedContractsDateMax = [
-      //Les contrats avec la date de souscription max mentionnee
-    ];
-
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      // Vérifier que les contrats ont une date de souscription avant le 31 décembre 2024
-      expect(res.body.data.content).to.be.an("array");
-      expect(res.body.status).to.be.equal("SUCCESS");
-      expectedContractsDateMax.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(
+          "array"
+        );
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
       });
     });
   });
 
-  it("should return 400 for dateSouscriptionMaxR with incorrect date format", () => {
-    const dateSouscriptionMaxR = "2024/12/31"; // format de date incorrect
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false,
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body).to.deep.include({
-        status: "ERROR",
-        codeMessage: "ERR_GENERAL_0002",
-        error: { message: "Invalid data format." },
+  it("TC26 | should return 400 for invalid date format in dateSouscriptionMaxR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "26");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
       });
     });
   });
 
-  it("should return 200 for dateSouscriptionMaxR with extreme future date", () => {
-    const dateSouscriptionMaxR = "2030-12-31"; // date extrême dans le futur
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      // Vérifier que la réponse contient tous les contrats existants dans la base de données
-      expect(res.body.data.content).to.be.an("array");
-      AllContracts.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
+  it("TC27 | should return 200 and a list of all contracts for extreme future dateSouscriptionMaxR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "27");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
       });
     });
   });
 
-  it("should return 400 for dateSouscriptionMaxR with complete date format", () => {
-    const dateSouscriptionMaxR = "2025-12-31T23:59:59"; // format complet avec l'heure
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false,
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body).to.deep.include({
-        status: "ERROR",
-        codeMessage: "ERR_GENERAL_0002",
-        error: { message: "Invalid data format." },
-      });
-    });
-  });
-  it("should return 200 for valid dateSouscriptionMaxR", () => {
-    const dateSouscriptionMaxR = "2024-12-31";
-    const expectedContractsDateMin = [
-      //Les contrats avec la date de souscription max mentionnee
-    ];
+  it("TC28 | should return 400 for dateSouscriptionMaxR with complete date format", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "28");
 
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      // Vérifier que les contrats ont une date de souscription avant le 31 décembre 2024
-      expect(res.body.data.content).to.be.an("array");
-      expect(res.body.status).to.be.equal("SUCCESS");
-      expectedContractsDateMin.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
-      });
-    });
-  });
-  it("should return 200 for valid dateSouscriptionMaxR", () => {
-    const dateSouscriptionMaxR = "2024-12-31";
-    const expectedContractsDateMin = [
-      //Les contrats avec la date de souscription max mentionnee
-    ];
-
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMaxR=${dateSouscriptionMaxR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      // Vérifier que les contrats ont une date de souscription avant le 31 décembre 2024
-      expect(res.body.data.content).to.be.an("array");
-      expect(res.body.status).to.be.equal("SUCCESS");
-      expectedContractsDateMin.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
-      });
-    });
-  });
-  it("should return 400 for dateSouscriptionMinR with incorrect date format", () => {
-    const dateSouscriptionMinR = "2024/12/31"; // format de date incorrect
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMinR=${dateSouscriptionMinR}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false,
-    }).then((res) => {
-      expect(res.status).to.eq(400);
-      expect(res.body).to.deep.include({
-        status: "ERROR",
-        codeMessage: "ERR_GENERAL_0002",
-        error: { message: "Invalid data format." },
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
       });
     });
   });
 
-  it("should return 200 for dateSouscriptionMinR with extreme past date", () => {
-    const dateSouscriptionMinR = "1500-12-31"; // date extrême dans le passé
-    cy.request({
-      method: "GET",
-      url: `${api}?dateSouscriptionMinR=${dateSouscriptionMinR}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      // Vérifier que la réponse contient tous les contrats existants dans la base de données
-      expect(res.body.data.content).to.be.an("array");
-      expect(res.body.status).to.be.equal("SUCCESS");
-      AllContracts.forEach((expectedContract, index) => {
-        expect(res.body.data.content[index]).to.deep.include(expectedContract);
+  it("TC29 | should return 200 for valid dateSouscriptionMinR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "29");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
       });
     });
   });
-});
-it("should return an empty array when no contracts match the dateSouscriptionMinR", () => {
-  const dateSouscriptionMinR = "2022-12-31"; // Une date qui ne correspond à aucun contrat dans la base de données
 
-  cy.request({
-    method: "GET",
-    url: `${api}?dateSouscriptionMinR=${dateSouscriptionMinR}`,
-    headers: { Authorization: token },
-    failOnStatusCode: false, // Empêche de faire échouer le test en cas de 404
-  }).then((res) => {
-    expect(res.status).to.eq(200); // Vérifie le statut de la réponse
-    expect(res.body.status).to.be.equal("SUCCESS"); // Vérifie que le statut de la réponse est "SUCCESS"
-    expect(res.body.data.content).to.be.an("array").that.is.empty; // Vérifie que le tableau de contenu est vide
+  it("TC30 | should return 400 for invalid date format in dateSouscriptionMinR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "30");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+      });
+    });
+  });
+
+  it("TC31 | should return 400 for dateSouscriptionMinR with complete date format", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "31");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          status: testCase.status,
+        });
+        expect(res.body.ResponseWrapperContractListDto.error).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+      });
+    });
+  });
+
+  it("TC32 | should return 200 and a list of all contracts for extreme past dateSouscriptionMinR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "32");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
+      });
+    });
+  });
+  it("TC33 | should return 200 for valid datePattern with dateSouscriptionMaxR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "33");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
+      });
+    });
+  });
+  it("TC34 | should return 200 for valid datePattern with dateSouscriptionMinR", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "34");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
+      });
+    });
+  });
+
+  it("TC35 | should return 200 for valid dateSouscriptionMaxR and dateSouscriptionMinR(the contracts between the 2 dates )", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "35");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.equal(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto).to.include({
+          message: testCase.message,
+          codeMessage: testCase.codeMessage,
+        });
+        testCase.responseBody.forEach((expectedContract, index) => {
+          expect(
+            res.body.ResponseWrapperContractListDto.data.content[index]
+          ).to.deep.include(expectedContract);
+        });
+      });
+    });
   });
 });

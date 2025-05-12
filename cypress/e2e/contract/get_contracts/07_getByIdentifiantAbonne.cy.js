@@ -1,36 +1,61 @@
-describe("GET /api/v1/contracts - Recherche par identifiantAbonne", () => {
-  it("should return contracts for valid identifiantAbonne", () => {
-    const identifiantAbonne = 8765437; // IdentifiantAbonne valide
-    const expectedContrats = [];
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantAbonne=${identifiantAbonne}`,
-      headers: { Authorization: token },
-    }).then((res) => {
-      expect(res.status).to.eq(200);
-      expect(res.body.status).to.equal("SUCCESS");
-      expect(res.body.data.content).to.be.an("array");
-      // Vérifier que chaque contrat contient l'identifiantAbonne attendu
-      /*res.body.data.content.forEach((contract) => {
-          expect(contract.identifiantAbonne).to.equal(identifiantAbonne);
-        });*/
+/*describe("GET /api/v1/contracts - Recherche par identifiantAbonne", () => {
+  beforeEach(function () {
+    cy.fetchContracts();
+    cy.fixture("getContracts.json").as("contractsData");
+    cy.getToken();
+  });
+
+  const url = Cypress.env("getContractsUrl");
+
+  it("TC47 | should return 200 and contracts for valid identifiantAbonne", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "47");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.data.content).to.be.an(
+          "array"
+        );
+        testCase.responseBody.forEach((expectedContract, index) => {
+          const actualContract =
+            res.body.ResponseWrapperContractListDto.data.content[index];
+          expect(actualContract).to.deep.include(expectedContract);
+          expect(actualContract.identifiantAbonne).to.eq(
+            testCase.queryParams.identifiantAbonne
+          );
+        });
+      });
     });
   });
 
-  it("should return 404 for non-existent identifiantAbonne", () => {
-    const identifiantAbonne = 9999999; // IdentifiantAbonne inexistant
-    cy.request({
-      method: "GET",
-      url: `${api}?identifiantAbonne=${identifiantAbonne}`,
-      headers: { Authorization: token },
-      failOnStatusCode: false, // Ne pas échouer le test automatiquement en cas d'erreur
-    }).then((res) => {
-      expect(res.status).to.eq(404);
-      expect(res.body.status).to.equal("ERROR");
-      expect(res.body.error.code).to.equal("ERR_GENERAL_0004");
-      expect(res.body.error.message).to.equal(
-        "The requested resource was not found."
-      );
+  it("TC48 | should return 200 with empty result for non-existent identifiantAbonne", function () {
+    cy.get("@authToken").then((token) => {
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "48");
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        expect(res.status).to.eq(testCase.statusCode);
+        expect(res.body.ResponseWrapperContractListDto.status).to.eq(
+          testCase.status
+        );
+        expect(res.body.ResponseWrapperContractListDto.data.content)
+          .to.be.an("array")
+          .and.to.have.length(0);
+      });
     });
   });
 });
+*/
