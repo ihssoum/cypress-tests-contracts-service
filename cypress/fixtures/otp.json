@@ -1,0 +1,831 @@
+[
+  {
+    "testCaseId": "50",
+    "testCaseName": "Valid Request Data",
+    "description": "This test case checks the successful sending of an OTP with valid data. It sends a valid data example to the endpoint and expects that the OTP is sent successfully.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+21643324080",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "phoneNumber": "+21643324080",
+        "email": "qa-adria@gmail.com",
+        "identifier": "26a35217-b4c2-482b-8f07-43210376eca3"
+      }
+    }
+  },
+  {
+    "testCaseId": "51",
+    "testCaseName": "Send another request with same number/email",
+    "description": "This test case checks the successful sending of an OTP with valid data that were used before to request an OTP. It sends a valid data example to the endpoint and expects that the OTP is sent successfully. This is to check whether user can request the OTP twice with same personal information.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+21643324080",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "phoneNumber": "+21643324080",
+        "email": "qa-adria@gmail.com",
+        "identifier": "c00a35eb-f661-4bf4-8c6b-9e9f7e45dd8c"
+      }
+    }
+  },
+  {
+    "testCaseId": "52",
+    "testCaseName": "Sending empty request",
+    "description": "This test case checks the error response when sending an empty request. It sends an empty request to the endpoint and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {}
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "53",
+    "testCaseName": "Sending OTP without phone number, email",
+    "description": "This test case checks the error response when sending an OTP without providing a phone number or email. It sends a request with only customerId and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "54",
+    "testCaseName": "Sending OTP without phone number",
+    "description": "This test case checks the error response when sending an OTP without providing a phone number. It sends a request with only email and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "55",
+    "testCaseName": "Sending OTP w/ Local Phone Number w/o mail",
+    "description": "This test case checks the successful sending of an OTP with a local phone number and without providing an email. It sends a request with only phone number that is local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+21643324080",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "phoneNumber": "+21643324080",
+        "email": null,
+        "identifier": "acd09f35-d354-478e-9516-e4c80152db55"
+      }
+    }
+  },
+  {
+    "testCaseId": "56",
+    "testCaseName": "Sending OTP w/ Non-Local Phone Number w/o mail",
+    "description": "This test case checks the error response when sending an OTP with a non-local phone number and without providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+212643324080",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "57",
+    "testCaseName": "Sending OTP w/ Non-Local Phone Number w/ mail",
+    "description": "This test case checks the successful sending of an OTP with a non-local phone number and with providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+216643324080",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "phoneNumber": "+216643324080",
+        "email": "qa-adria@gmail.com",
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c"
+      }
+    }
+  },
+  {
+    "testCaseId": "58",
+    "testCaseName": "Sending OTP w/ Phone Number not respecting format w/ email",
+    "description": "This test case checks the error response when sending an OTP with a phone number that does not respect the format and with providing an email. It sends a request with a phone number that doesn't respect the format along with email and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+212643dazdae656454ea6&é\"\\'324080",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "59",
+    "testCaseName": "Phone number with special characters",
+    "description": "This test case checks the error response when sending an OTP with a phone number that contains special characters. It sends a request with a phone number that contains special characters and expects that the OTP is not sent.",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+12$3456",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "60",
+    "testCaseName": "Long phone number",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+123456789012345678901212345678901234567890123456789012345678901234567890123451234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890345678901234567890123456789012345678901234567890123456789012345678901234567890",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "61",
+    "testCaseName": "Short phone number",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+123",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "62",
+    "testCaseName": "Alphanumeric Phone Number",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+2126abcd4080",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "63",
+    "testCaseName": "phone number not string",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": 212643324080,
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "64",
+    "testCaseName": "Email without @",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "65",
+    "testCaseName": "Email w/ more @",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "66",
+    "testCaseName": "Long email",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.comgmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "67",
+    "testCaseName": "Email not string",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": 1234567890,
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "68",
+    "testCaseName": "Email w/ special characters",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "user@gmail!$.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "69",
+    "testCaseName": "Missing bank code",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-admin@gmail.com",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "70",
+    "testCaseName": "Inexistant bank code",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "XYZ9999",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "71",
+    "testCaseName": "Bank code w/ special characters",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK@#.",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "72",
+    "testCaseName": "Bank code not string",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": 12345,
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "73",
+    "testCaseName": "Long bank code",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234BANK1234",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "74",
+    "testCaseName": "Language code missing",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "75",
+    "testCaseName": "Language code w/ special characters",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "@!"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "76",
+    "testCaseName": "Language code not string",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": 1234
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "77",
+    "testCaseName": "inexistant language code",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "ma"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "78",
+    "testCaseName": "Missing customerId",
+    "requestBody": {
+      "sendOtpRequest": {
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "fr"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "79",
+    "testCaseName": "long language code",
+    "requestBody": {
+      "sendOtpRequest": {
+        "customerId": "00801975",
+        "phoneNumber": "+1234567890",
+        "email": "qa-adria@gmail.com",
+        "bankCode": "00004",
+        "languageCode": "english"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0001",
+        "message": "Failed to send OTP. Please try again."
+      }
+    }
+  },
+  {
+    "testCaseId": "80",
+    "testCaseName": "Verify a valid OTP",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "c00a35eb-f661-4bf4-8c6b-9e9f7e45dd8c",
+        "receivedOtp": "819430"
+      }
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+        "valid": true,
+        "message": "OTP successfully validated"
+      }
+    }
+  },
+  {
+    "testCaseId": "81",
+    "testCaseName": "Verify an expired OTP (after 6 minutes)",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "59c0d95d-b718-4e3f-8402-8f0f72089e53",
+        "receivedOtp": "648880"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0003",
+        "message": "The OTP has expired. Please request a new one."
+      }
+    }
+  },
+  {
+    "testCaseId": "82",
+    "testCaseName": "Verify an old OTP after creating another one",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "26a35217-b4c2-482b-8f07-43210376eca3",
+        "receivedOtp": "568852"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "83",
+    "testCaseName": "Inexistant identifier",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "1234",
+        "receivedOtp": "095066"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "84",
+    "testCaseName": "Verify OTP with incorrect password",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
+        "receivedOtp": "123456"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "85",
+    "testCaseName": "Verify an empty OTP request",
+    "requestBody": {
+      "verifyOtpRequest": {}
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "86",
+    "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "receivedOtp": "095066"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "87",
+    "testCaseName": "Identifier with special characters",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "?=/)àç_'\"{~#&",
+        "receivedOtp": "095066"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "88",
+    "testCaseName": "Long identifier",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "444444444aaaaaaaaaaaaaa4444444444aaaaaaaaaaa4444444444aaaaaaa",
+        "receivedOtp": "095066"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "89",
+    "testCaseName": "Numbered identifier (not string)",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": 123456789,
+        "receivedOtp": "095066"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "90",
+    "testCaseName": "Missing OTP",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "91",
+    "testCaseName": "Long OTP",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
+        "receivedOtp": "80118012801380148015801680178018801980204864864564847654654555555555555555555555555555555555555555"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "92",
+    "testCaseName": "Invalid OTP format",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
+        "receivedOtp": "ae53135"
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  },
+  {
+    "testCaseId": "93",
+    "testCaseName": "Numbered OTP",
+    "requestBody": {
+      "verifyOtpRequest": {
+        "identifier": "020613b1-8499-4951-bb7b-b396a7730c5c",
+        "receivedOtp": 123456
+      }
+    },
+    "responseBody": {
+      "status": "ERROR",
+      "error": {
+        "code": "ERR_OTP_0004",
+        "message": "The OTP is invalid. Please enter the correct OTP."
+      }
+    }
+  }
+]

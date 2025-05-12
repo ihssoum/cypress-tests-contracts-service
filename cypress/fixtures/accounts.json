@@ -1,0 +1,28 @@
+[
+  {
+    "testCaseId": "41",
+    "testCaseName": "Valid Request Data",
+    "queryParams": {
+      "bankCode": "BANK001",
+      "languageCode": "en"
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+      }
+    }
+  },
+  {
+    "testCaseId": "42",
+    "testCaseName": "Send another request with same number/email",
+    "queryParams": {
+      "bankCode": "BANK001",
+      "languageCode": "en"
+    },
+    "responseBody": {
+      "status": "SUCCESS",
+      "data": {
+      }
+    }
+  }
+]
