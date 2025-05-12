@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "chai-each": "^0.0.1",
-    "chai-json-schema": "^1.5.1"
+    "chai-json-schema": "^1.5.1",
+    "oracledb": "^6.8.0"
   }
 }
