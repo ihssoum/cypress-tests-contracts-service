@@ -20,101 +20,85 @@ describe("/api/v1/contracts test suite", () => {
     });
   });
 
-  //   it.only("testing insertion in database", ()=>{
-  //     const UUID = crypto.randomUUID();
-  //     const randomId = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 999999
-  //     const query = `
-  //     INSERT INTO otp (
-  //       PHONE_NUMBER, ID_CLIENT, EMAIL, ID, IDENTIFIANT, OTP_CODE, EXPIRES_AT,
-  //       USED, CREATEDBYUSER, UPDATEDBYUSER, CREATEDON, UPDATEDON,
-  //       VERSION, CODE_BANQUE_ASSOCIE, CODE_PAYS_ASSOCIE
-  //     ) VALUES (
-  //       '+21612345678', '123456', 'example@email.com', ${randomId}, '${UUID}', 555555,
-  //       CURRENT_TIMESTAMP + INTERVAL '5' MINUTE, 1, 'abtbo', 'abtbo',
-  //       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '00004', 'TN'
-  //     )
-  //   `;
-  //     cy.task("verifyContractDetailsOtp", { query })
-  //   })
 
-  //   it("TC-94 | Valid contract with beneficiaries", () => {
-  //     const testCase = Cypress.env("contractData").find(
-  //       (tc) => tc.testCaseId === "94"
-  //     );
-  //     const UUID = crypto.randomUUID();
-  //     const randomId = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 999999
-  //     const query = `
-  //     INSERT INTO otp (
-  //       PHONE_NUMBER, ID_CLIENT, EMAIL, ID, IDENTIFIANT, OTP_CODE, EXPIRES_AT,
-  //       USED, CREATEDBYUSER, UPDATEDBYUSER, CREATEDON, UPDATEDON,
-  //       VERSION, CODE_BANQUE_ASSOCIE, CODE_PAYS_ASSOCIE
-  //     ) VALUES (
-  //       '+21612345678', ${testCase.requestBody.contractRequest.customerId}, 'example@email.com', ${randomId}, '${UUID}', 555555,
-  //       CURRENT_TIMESTAMP + INTERVAL '5' MINUTE, 1, 'abtbo', 'abtbo',
-  //       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '00004', 'TN'
-  //     )
-  //   `;
-  //     cy.task("verifyContractDetailsOtp", { query });
+    it("TC-94 | Valid contract with beneficiaries", () => {
+      const testCase = Cypress.env("contractData").find(
+        (tc) => tc.testCaseId === "94"
+      );
+      const UUID = crypto.randomUUID();
+      const randomId = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 999999
+      const query = `
+      INSERT INTO otp (
+        PHONE_NUMBER, ID_CLIENT, EMAIL, ID, IDENTIFIANT, OTP_CODE, EXPIRES_AT,
+        USED, CREATEDBYUSER, UPDATEDBYUSER, CREATEDON, UPDATEDON,
+        VERSION, CODE_BANQUE_ASSOCIE, CODE_PAYS_ASSOCIE
+      ) VALUES (
+        '+21612345678', ${testCase.requestBody.contractRequest.customerId}, 'example@email.com', ${randomId}, '${UUID}', 555555,
+        CURRENT_TIMESTAMP + INTERVAL '5' MINUTE, 1, 'abtbo', 'abtbo',
+        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '00004', 'TN'
+      )
+    `;
+      cy.task("verifyContractDetailsOtp", { query });
 
-  //     cy.request({
-  //       method: "POST",
-  //       url: "/api/v1/contracts?action=CREATE",
-  //       body: testCase.requestBody,
-  //       failOnStatusCode: false,
-  //     }).then((response) => {
-  //       expect(response.status).to.eq(201);
-  //       expect(response.body.ResponseWrapperCreateContractDto).to.have.property(
-  //         "status",
-  //         "SUCCESS"
-  //       );
-  //       expect(
-  //         response.body.ResponseWrapperCreateContractDto.data
-  //       ).to.have.property("success", true);
-  //       expect(
-  //         response.body.ResponseWrapperCreateContractDto.data
-  //       ).to.have.property("token");
-  //     });
-  //   });
+      cy.request({
+        method: "POST",
+        url: "/api/v1/contracts?action=CREATE",
+        body: testCase.requestBody,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(201);
+        expect(response.body.ResponseWrapperCreateContractDto).to.have.property(
+          "status",
+          "SUCCESS"
+        );
+        expect(
+          response.body.ResponseWrapperCreateContractDto.data
+        ).to.have.property("success", true);
+        expect(
+          response.body.ResponseWrapperCreateContractDto.data
+        ).to.have.property("token");
+      });
+    });
 
-  //   it("TC-95 | Create a contract with valid data w/o beneficiaries", () => {
-  //     const testCase = Cypress.env("contractData").find(
-  //       (tc) => tc.testCaseId === "95"
-  //     );
+    it("TC-95 | Create a contract with valid data w/o beneficiaries", () => {
+      const testCase = Cypress.env("contractData").find(
+        (tc) => tc.testCaseId === "95"
+      );
 
-  //     const UUID = crypto.randomUUID();
-  //     const randomId = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 999999
-  //     const query = `
-  //     INSERT INTO otp (
-  //       PHONE_NUMBER, ID_CLIENT, EMAIL, ID, IDENTIFIANT, OTP_CODE, EXPIRES_AT,
-  //       USED, CREATEDBYUSER, UPDATEDBYUSER, CREATEDON, UPDATEDON,
-  //       VERSION, CODE_BANQUE_ASSOCIE, CODE_PAYS_ASSOCIE
-  //     ) VALUES (
-  //       '+21612345678', ${testCase.requestBody.contractRequest.customerId}, 'example@email.com', ${randomId}, '${UUID}', 555555,
-  //       CURRENT_TIMESTAMP + INTERVAL '5' MINUTE, 1, 'abtbo', 'abtbo',
-  //       CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '00004', 'TN'
-  //     )
-  //   `;
-  //     cy.task("verifyContractDetailsOtp", { query });
+      const UUID = crypto.randomUUID();
+      const randomId = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 999999
+      const query = `
+      INSERT INTO otp (
+        PHONE_NUMBER, ID_CLIENT, EMAIL, ID, IDENTIFIANT, OTP_CODE, EXPIRES_AT,
+        USED, CREATEDBYUSER, UPDATEDBYUSER, CREATEDON, UPDATEDON,
+        VERSION, CODE_BANQUE_ASSOCIE, CODE_PAYS_ASSOCIE
+      ) VALUES (
+        '+21612345678', ${testCase.requestBody.contractRequest.customerId}, 'example@email.com', ${randomId}, '${UUID}', 555555,
+        CURRENT_TIMESTAMP + INTERVAL '5' MINUTE, 1, 'abtbo', 'abtbo',
+        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '00004', 'TN'
+      )
+    `;
+      cy.task("verifyContractDetailsOtp", { query });
 
-  //     cy.request({
-  //       method: "POST",
-  //       url: "/api/v1/contracts?action=CREATE",
-  //       body: testCase.requestBody,
-  //       failOnStatusCode: false,
-  //     }).then((response) => {
-  //       expect(response.status).to.eq(201);
-  //       expect(response.body.ResponseWrapperCreateContractDto).to.have.property(
-  //         "status",
-  //         "SUCCESS"
-  //       );
-  //       expect(
-  //         response.body.ResponseWrapperCreateContractDto.data
-  //       ).to.have.property("success", true);
-  //       expect(
-  //         response.body.ResponseWrapperCreateContractDto.data
-  //       ).to.have.property("token");
-  //     });
-  //   });
+      cy.request({
+        method: "POST",
+        url: "/api/v1/contracts?action=CREATE",
+        body: testCase.requestBody,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(201);
+        expect(response.body.ResponseWrapperCreateContractDto).to.have.property(
+          "status",
+          "SUCCESS"
+        );
+        expect(
+          response.body.ResponseWrapperCreateContractDto.data
+        ).to.have.property("success", true);
+        expect(
+          response.body.ResponseWrapperCreateContractDto.data
+        ).to.have.property("token");
+      });
+    });
 
   it("TC-96 | Create contract with a client that have an entreprise segment", () => {
     const testCase = Cypress.env("contractData").find(
