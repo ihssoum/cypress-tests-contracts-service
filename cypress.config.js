@@ -78,8 +78,9 @@ export default {
     env:{
         allure: true,
         fixturesPath:
-        "C:/Users/pc/Documents/Adria-QA/adria-dataprovider-service-cy/cypress-tests-contracts-service/cypress/fixtures",
-        getContractsUrl: "http://192.168.145.209:8030",
+        "C:/cypress-tests-contracts-service/cypress/fixtures",
+        getContractsUrl: "http://localhost:8030",
+        getContractsUrlId: "http://localhost:8030/api/v1/contract",
 
     }
   },

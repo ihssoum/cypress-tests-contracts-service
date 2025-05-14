@@ -9,7 +9,7 @@ describe("api/v1/contracts/{id} - Get contract By a valid id", () => {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "124");
       const contractId = testCase.queryParams.id;
-      const url = `${Cypress.env("getContractsUrl")}/${contractId}`;
+      const url = `${Cypress.env("getContractsUrlId")}/${contractId}`;
 
       cy.request({
         method: testCase.method,
@@ -215,7 +215,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     cy.get("@authToken").then((token) => {
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrl")}/?client=abt`, // Missing ID causing server error
+        url: `${Cypress.env("getContractsUrlId")}/?client=abt`, // Missing ID causing server error
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -245,7 +245,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrl")}/${nonExistentId}?client=abt`,
+        url: `${Cypress.env("getContractsUrlId")}/${nonExistentId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -275,7 +275,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrl")}/${invalidLargeId}?client=abt`,
+        url: `${Cypress.env("getContractsUrlId")}/${invalidLargeId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -310,7 +310,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrl")}/${invalidAlphaId}?client=abt`,
+        url: `${Cypress.env("getContractsUrlId")}/${invalidAlphaId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
