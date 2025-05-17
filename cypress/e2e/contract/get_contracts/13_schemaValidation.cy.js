@@ -1,0 +1,37 @@
+describe("Get all contracts", () => {
+  before(function () {
+    cy.fetchContracts();
+    cy.fixture("getContracts.json").as("contractsData");
+    cy.fixture("contractSchema.json").as("contractSchema"); // chargement du schéma
+    cy.getToken();
+  });
+
+  it("TC68 | schema validation", function () {
+    cy.get("@authToken").then((token) => {
+      const url = Cypress.env("getContractsUrl");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "68");
+
+      cy.request({
+        method: testCase.method,
+        url: `${url}/${testCase.api}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        failOnStatusCode: false,
+      }).then((res) => {
+        cy.log(JSON.stringify(res.body));
+
+        const contracts =
+          res.body.ResponseWrapperContractListDto.data.content;
+
+        // ✅ Validation du statut
+        expect(res.status).to.eq(testCase.statusCode);
+
+        // ✅ Validation de la structure
+        
+        // ✅ Validation du schéma JSON
+        expect(contracts).to.be.jsonSchema(this.contractSchema);
+      });
+    });});
+
+});
