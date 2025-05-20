@@ -1,4 +1,4 @@
-/*describe("GET /api/v1/contracts - Recherche par identifiantAbonne", () => {
+describe("GET /api/v1/contracts - Recherche par identifiantAbonne", () => {
   beforeEach(function () {
     cy.fetchContracts();
     cy.fixture("getContracts.json").as("contractsData");
@@ -58,4 +58,3 @@
     });
   });
 });
-*/

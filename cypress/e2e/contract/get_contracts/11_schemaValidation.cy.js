@@ -1,15 +1,16 @@
-describe("Get all contracts", () => {
+describe("Get all contracts for schema validation", () => {
   before(function () {
     cy.fetchContracts();
-    cy.fixture("getContracts.json").as("contractsData");
-    cy.fixture("contractSchema.json").as("contractSchema"); // chargement du schéma
+
+    cy.fixture("schemaValidation.json").as("contractSchema"); // chargement du schéma
+    cy.fixture("getContracts.json").as("contractsData"); // chargement du schéma
     cy.getToken();
   });
 
-  it("TC68 | schema validation", function () {
+  it("TC57 | schema validation", function () {
     cy.get("@authToken").then((token) => {
       const url = Cypress.env("getContractsUrl");
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "68");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "57");
 
       cy.request({
         method: testCase.method,
@@ -21,17 +22,16 @@ describe("Get all contracts", () => {
       }).then((res) => {
         cy.log(JSON.stringify(res.body));
 
-        const contracts =
-          res.body.ResponseWrapperContractListDto.data.content;
+        const contracts = res.body.ResponseWrapperContractListDto.data.content;
 
         // ✅ Validation du statut
         expect(res.status).to.eq(testCase.statusCode);
 
         // ✅ Validation de la structure
-        
+
         // ✅ Validation du schéma JSON
         expect(contracts).to.be.jsonSchema(this.contractSchema);
       });
-    });});
-
+    });
+  });
 });

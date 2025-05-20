@@ -8,9 +8,9 @@ describe("GET /api/v1/contracts - Result verification tests", () => {
 
   const url = Cypress.env("getContractsUrl");
 
-  it("TC65 | verify that version is not null", function () {
+  it("TC54 | verify that version is not null", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "65");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "54");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,
@@ -26,9 +26,9 @@ describe("GET /api/v1/contracts - Result verification tests", () => {
       });
     });
   });
-  it("TC66 | Verify that every contractIdentifier respect the format B/13CHIFFRES/A", function () {
+  it("TC55 | Verify that every contractIdentifier respect the format B/13CHIFFRES/A", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "66");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "55");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,
@@ -44,9 +44,9 @@ describe("GET /api/v1/contracts - Result verification tests", () => {
       });
     });
   });
-  it("TC67 | should ensure commercialRelationIdentifier does not exceed 8 digits", function () {
+  it("TC56 | should ensure commercialRelationIdentifier does not exceed 8 digits", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "67");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "56");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,

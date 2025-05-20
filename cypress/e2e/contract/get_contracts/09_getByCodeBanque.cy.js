@@ -7,9 +7,9 @@ describe("GET /api/v1/contracts - Recherche par codeBanque", () => {
 
   const url = Cypress.env("getContractsUrl");
 
-  it("TC62 | should return 200 and contracts for valid codeBanque", function () {
+  it("TC51 | should return 200 and contracts for valid codeBanque", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "62");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "51");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,
@@ -28,9 +28,9 @@ describe("GET /api/v1/contracts - Recherche par codeBanque", () => {
     });
   });
 
-  it("TC63 | should return 200 and empty list for non-existent codeBanque", function () {
+  it("TC52 | should return 200 and empty list for non-existent codeBanque", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "63");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "52");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,
@@ -44,9 +44,9 @@ describe("GET /api/v1/contracts - Recherche par codeBanque", () => {
     });
   });
 
-  it("TC64 | should return 400 when codeBanque is a string", function () {
+  it("TC53 | should return 400 when codeBanque is a string", function () {
     cy.get("@authToken").then((token) => {
-      const testCase = this.contractsData.find((tc) => tc.testCaseId === "64");
+      const testCase = this.contractsData.find((tc) => tc.testCaseId === "53");
       cy.request({
         method: testCase.method,
         url: `${url}/${testCase.api}`,
