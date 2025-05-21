@@ -1,0 +1,65 @@
+[
+  {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Contracts Array Schema",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "associatedBankCode": { "type": ["string", "null"] },
+        "createdByUser": { "type": ["string", "null"] },
+        "associatedCountryCode": { "type": ["string", "null"] },
+        "version": { "type": ["integer"] },
+        "contractIdentifier": { "type": ["string"] },
+        "subscriptionProduct": { "type": ["string", "null"] },
+        "clientType": { "type": ["string", "null"] },
+        "clientTypeLabel": { "type": ["string", "null"] },
+        "state": { "type": ["string", "null"] },
+        "stateLabel": { "type": ["string", "null"] },
+        "encryption": { "type": ["boolean", "null"] },
+        "sealing": { "type": ["boolean", "null"] },
+        "publicKey": { "type": ["string", "null"] },
+        "commercialRelationTitle": { "type": ["string", "null"] },
+        "commercialRelationIdentifier": { "type": "string" },
+        "commercialAgency": { "type": ["string", "null"] },
+        "subscriptionDate": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{2}-\\d{2}-\\d{4}$"
+        },
+        "enableForSubscribers": { "type": ["boolean", "null"] },
+        "billingAccount": { "type": ["string", "null"] },
+        "clientAccountManager": { "type": ["string", "null"] },
+        "numberOfSubscribers": { "type": ["integer", "null"] },
+        "qualityRelativeToContract": { "type": ["string", "null"] },
+        "commercialRelationDto": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "associatedBankCode": { "type": ["string", "null"] },
+            "associatedCountryCode": { "type": ["string", "null"] },
+            "version": { "type": ["integer", "null"] },
+            "commercialRelationIdentifier": { "type": "string" },
+            "title": { "type": ["string", "null"] },
+            "segment": { "type": ["string", "null"] },
+            "nationalIFNumber": { "type": ["string", "null"] },
+            "commerceRegisterNumber": { "type": ["string", "null"] },
+            "addressLine1": { "type": ["string", "null"] },
+            "addressLine2": { "type": ["string", "null"] },
+            "addressLine3": { "type": ["string", "null"] },
+            "phoneNumber": { "type": ["string", "null"] },
+            "tradeFinanceBankId": { "type": ["string", "null"] }
+          },
+          "required": ["id", "commercialRelationIdentifier"]
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "contractIdentifier",
+        "commercialRelationIdentifier",
+        "commercialRelationDto"
+      ]
+    }
+  }
+]

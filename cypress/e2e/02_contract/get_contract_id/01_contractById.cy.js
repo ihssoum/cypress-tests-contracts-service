@@ -1,15 +1,18 @@
 describe("api/v1/contracts/{id} - Get contract By a valid id", () => {
   before(function () {
     cy.fetchContractById();
-    cy.fixture("getContractByIdResponseSchema.json").as("contractsData");
+    cy.fixture("getContractById.json").as("contractsData");
+    cy.fixture("GetContractByIdSchema.json").as("contractsDataSchema");
     cy.getToken();
   });
+
+  
 
   it("TC124 | should return 200 and valid contract data for a valid contract ID", function () {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "124");
       const contractId = testCase.queryParams.id;
-      const url = `${Cypress.env("getContractsUrlId")}/${contractId}`;
+      const url = `/api/v1/contracts/${contractId}`;
 
       cy.request({
         method: testCase.method,
@@ -215,7 +218,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     cy.get("@authToken").then((token) => {
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrlId")}/?client=abt`, // Missing ID causing server error
+        url: `/api/v1/contracts/`, // Missing ID causing server error
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -245,7 +248,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrlId")}/${nonExistentId}?client=abt`,
+        url: `/api/v1/contracts/${nonExistentId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -275,7 +278,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrlId")}/${invalidLargeId}?client=abt`,
+        url: `/api/v1/contracts/${invalidLargeId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -310,7 +313,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
       
       cy.request({
         method: "GET",
-        url: `${Cypress.env("getContractsUrlId")}/${invalidAlphaId}?client=abt`,
+        url: `/api/v1/contracts/${invalidAlphaId}?client=abt`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -5,14 +5,13 @@ describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
     cy.getToken();
   });
 
-  const url = Cypress.env("getContractsUrl");
 
   it("TC36 | should return 200 and a list of contracts for valid identifiantRC", function () {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "36");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +42,7 @@ describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "37");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +64,7 @@ describe("GET /api/v1/contracts - Recherche par identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "38");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -87,7 +86,7 @@ it("TC39 | should return 400 for special characters in identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "39");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -109,7 +108,7 @@ it("TC39 | should return 400 for special characters in identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "40");
       cy.request({
         method: "GET",
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -131,7 +130,7 @@ it("TC39 | should return 400 for special characters in identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "41");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -154,7 +153,7 @@ it("TC39 | should return 400 for special characters in identifiantRC", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "42");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

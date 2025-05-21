@@ -5,7 +5,6 @@ describe("GET /api/v1/contracts - Recherche par rattachement", () => {
     cy.getToken();
   });
 
-  const url = Cypress.env("getContractsUrl");
 
   it("TC49 | should return 200 and contracts with rattachement=true", function () {
     cy.get("@authToken").then((token) => {

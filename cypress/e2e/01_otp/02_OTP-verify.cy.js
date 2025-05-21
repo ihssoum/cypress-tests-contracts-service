@@ -4,13 +4,13 @@ describe("/api/v1/otp/verify test suite", () => {
     cy.fixture("otp.json").then((otpData) => {
       let updatedOtpData = [...otpData]; // Create a copy to modify throughout the chain
 
-      // TC 81 - expired otp
+      // TC 89 - expired otp
       cy.task("fetchReceivedOtpFromDb", {
         query: "SELECT identifiant, otp_code FROM OTP WHERE ID = 1025688",
       })
         .then((result) => {
           updatedOtpData = updatedOtpData.map((tc) =>
-            tc.testCaseId === "81"
+            tc.testCaseId === "89"
               ? {
                   ...tc,
                   requestBody: {
@@ -25,8 +25,8 @@ describe("/api/v1/otp/verify test suite", () => {
               : tc
           );
 
-          // TC 80 - valid otp
-          const tcValidIdentifier = otpData.find((tc) => tc.testCaseId === "51")
+          // TC 88 - valid otp
+          const tcValidIdentifier = otpData.find((tc) => tc.testCaseId === "59")
             .responseBody.data.identifier;
 
           return cy
@@ -35,7 +35,7 @@ describe("/api/v1/otp/verify test suite", () => {
             })
             .then((result) => {
               updatedOtpData = updatedOtpData.map((tc) =>
-                tc.testCaseId === "80"
+                tc.testCaseId === "88"
                   ? {
                       ...tc,
                       requestBody: {
@@ -53,8 +53,8 @@ describe("/api/v1/otp/verify test suite", () => {
             });
         })
         .then(() => {
-          // TC 82: - old otp
-          const tcOldIdentifier = otpData.find((tc) => tc.testCaseId === "50")
+          // TC 90: - old otp
+          const tcOldIdentifier = otpData.find((tc) => tc.testCaseId === "58")
             .responseBody.data.identifier;
 
           return cy
@@ -63,7 +63,7 @@ describe("/api/v1/otp/verify test suite", () => {
             })
             .then((result) => {
               updatedOtpData = updatedOtpData.map((tc) =>
-                tc.testCaseId === "82"
+                tc.testCaseId === "90"
                   ? {
                       ...tc,
                       requestBody: {
@@ -81,8 +81,8 @@ describe("/api/v1/otp/verify test suite", () => {
             });
         })
         .then(() => {
-          // TC 83, 86, 87, 88, 89: edge cases on identifier w/ valid otp
-          const tcEdgeIdentifier = otpData.find((tc) => tc.testCaseId === "55")
+          // TC 90, 93, 94, 95, 96: edge cases on identifier w/ valid otp
+          const tcEdgeIdentifier = otpData.find((tc) => tc.testCaseId === "63")
             .responseBody.data.identifier;
 
           return cy
@@ -91,7 +91,7 @@ describe("/api/v1/otp/verify test suite", () => {
             })
             .then((result) => {
               updatedOtpData = updatedOtpData.map((tc) =>
-                ["83", "86", "87", "88", "89"].includes(tc.testCaseId)
+                ["90", "93", "94", "95", "96"].includes(tc.testCaseId)
                   ? {
                       ...tc,
                       requestBody: {
@@ -108,12 +108,12 @@ describe("/api/v1/otp/verify test suite", () => {
             });
         })
         .then(() => {
-          // TC 84, 90, 91, 92, 93: edge cases on otp w/ valid identifier
-          const tcEdgeOtp = otpData.find((tc) => tc.testCaseId === "57")
+          // TC 91, 97, 98, 99, 100: edge cases on otp w/ valid identifier
+          const tcEdgeOtp = otpData.find((tc) => tc.testCaseId === "65")
             .responseBody.data.identifier;
 
           updatedOtpData = updatedOtpData.map((tc) =>
-            ["84", "90", "91", "92", "93"].includes(tc.testCaseId)
+            ["91", "97", "98", "99", "100"].includes(tc.testCaseId)
               ? {
                   ...tc,
                   requestBody: {
@@ -148,8 +148,8 @@ describe("/api/v1/otp/verify test suite", () => {
     }
   });
 
-  it("TC-80 | Verify OTP with valid data", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "80");
+  it("TC-88 | Verify OTP with valid data", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "88");
 
     cy.request({
       method: "POST",
@@ -176,8 +176,8 @@ describe("/api/v1/otp/verify test suite", () => {
     });
   });
 
-  it("TC-81 | Verify OTP with expired OTP", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "81");
+  it("TC-89 | Verify OTP with expired OTP", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "89");
 
     cy.request({
       method: "POST",
@@ -198,183 +198,7 @@ describe("/api/v1/otp/verify test suite", () => {
     });
   });
 
-  it("TC-82 | Verify an old OTP after creating a new one", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "82");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-83 | Verify OTP with nonexistent identifier", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "83");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-84 | Verify OTP with incorrect password", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "84");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-85 | Verify an empty OTP request", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "85");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(500);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-86 | Verify OTP with missing identifier", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "86");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(500);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-87 | Identifier w/ special characters", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "87");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-88 | Long identifier", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "88");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-89 | Numbered identifier (not string)", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "89");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/verify",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "codeMessage",
-          testCase.responseBody.error.code
-        );
-        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
-          "message",
-          testCase.responseBody.error.message
-        );
-    });
-  });
-
-  it("TC-90 | Verify OTP with missing OTP", function () {
+  it("TC-90 | Verify an old OTP after creating a new one", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "90");
 
     cy.request({
@@ -383,7 +207,7 @@ describe("/api/v1/otp/verify test suite", () => {
       body: testCase.requestBody,
       failOnStatusCode: false,
     }).then((response) => {
-        expect(response.status).to.eq(500);
+        expect(response.status).to.eq(400);
         expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
         expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
           "codeMessage",
@@ -396,7 +220,7 @@ describe("/api/v1/otp/verify test suite", () => {
     });
   });
 
-  it("TC-91 | Long OTP", function () {
+  it("TC-91 | Verify OTP with nonexistent identifier", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "91");
 
     cy.request({
@@ -418,7 +242,7 @@ describe("/api/v1/otp/verify test suite", () => {
     });
   });
 
-  it("TC-92 | Invalid OTP format", function () {
+  it("TC-92 | Verify OTP with incorrect password", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "92");
 
     cy.request({
@@ -438,9 +262,185 @@ describe("/api/v1/otp/verify test suite", () => {
           testCase.responseBody.error.message
         );
     });
+  });
 
-    it("TC-93 | Numbered OTP (not string)", function () {
-      const testCase = this.otpData.find((tc) => tc.testCaseId === "93");
+  it("TC-93 | Verify an empty OTP request", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "93");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-94 | Verify OTP with missing identifier", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "94");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-95 | Identifier w/ special characters", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "95");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-96 | Long identifier", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "96");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-97 | Numbered identifier (not string)", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "97");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-98 | Verify OTP with missing OTP", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "98");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(500);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-99 | Long OTP", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "99");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+  });
+
+  it("TC-100 | Invalid OTP format", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "100");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/verify",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property("status", "ERROR");
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "codeMessage",
+          testCase.responseBody.error.code
+        );
+        expect(response.body.ResponseWrapperVerifyOtpDto).to.have.property(
+          "message",
+          testCase.responseBody.error.message
+        );
+    });
+
+  it("TC-101 | Numbered OTP (not string)", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "101");
 
       cy.request({
         method: "POST",

@@ -19,7 +19,7 @@ Cypress.Commands.add("updateOtpData", (otpData, response, testCaseId) => {
 
 
 Cypress.Commands.add("fetchContracts", () => {
-  cy.request("http://localhost:3000/contracts?client=abt").then(
+  cy.request("http://localhost:3000/api/v1/contracts?client=abt").then(
     (apiResponse) => {
       const apiData = apiResponse.body.map((contract) => {
         return {
@@ -59,14 +59,13 @@ Cypress.Commands.add("fetchContracts", () => {
           content: JSON.stringify(updatedContracts, null, 2),
         });
 
-        //console.log(updatedContracts);
       });
     }
   );
 });
 
 Cypress.Commands.add("fetchContractsBySubscriptionDate", () => {
-  cy.request("http://localhost:3000/contracts?client=abt").then(
+  cy.request("http://localhost:3000/api/v1/contracts?client=abt").then(
     (apiResponse) => {
       const apiData = apiResponse.body.map((contract) => ({
         ...contract,
@@ -119,7 +118,7 @@ Cypress.Commands.add("fetchContractsBySubscriptionDate", () => {
   );
 });
 Cypress.Commands.add("fetchContractsByRattachement", () => {
-  cy.request("http://localhost:3000/contracts?client=abt").then(
+  cy.request("http://localhost:3000/api/v1/contracts?client=abt").then(
     (apiResponse) => {
       const apiData = apiResponse.body.map((contract) => ({
         ...contract,
@@ -165,7 +164,7 @@ Cypress.Commands.add("fetchContractsByRattachement", () => {
 Cypress.Commands.add("fetchContractById", (client = "abt") => {
   cy.request({
     method: 'GET',
-    url: `http://localhost:3000/contracts-id?client=${client}`,
+    url: `http://localhost:3000/api/v1/contractsById?client=${client}`,
     failOnStatusCode: false
   }).then((apiResponse) => {
     // Vérifier le statut

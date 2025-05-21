@@ -8,12 +8,10 @@ describe("Get all contracts", () => {
 
   it("TC01 | Get all contracts without filters", function () {
     cy.get("@authToken").then(function (token) {
-      const url = Cypress.env("getContractsUrl");
-      //cy.log(token);
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "1");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

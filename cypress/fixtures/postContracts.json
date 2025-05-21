@@ -1,9 +1,9 @@
 [
   {
-    "customerId": 1000293
+    "customerId": 99999
   },
   {
-    "testCaseId": "94",
+    "testCaseId": "102",
     "testCaseName": "Valid contract with beneficiaries",
     "queryParams": {
       "action": "CREATE"
@@ -38,7 +38,7 @@
     }
   },
   {
-    "testCaseId": "95",
+    "testCaseId": "103",
     "testCaseName": "Create contract with valid data w/o beneficiaries",
     "queryParams": {
       "action": "CREATE"
@@ -62,7 +62,7 @@
     }
   },
   {
-    "testCaseId": "96",
+    "testCaseId": "104",
     "testCaseName": "Create contract with a client that have an entreprise segment",
     "queryParams": {
       "action": "CREATE"
@@ -94,7 +94,7 @@
     }
   },
   {
-    "testCaseId": "97",
+    "testCaseId": "105",
     "testCaseName": "Create contract with a client that already has a contract",
     "queryParams": {
       "action": "CREATE"
@@ -104,7 +104,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "00801972",
+        "customerId": "00801971",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -125,7 +125,7 @@
     }
   },
   {
-    "testCaseId": "98",
+    "testCaseId": "106",
     "testCaseName": "Integration with CBS - Create contract with a client that doesn't exist in CBS",
     "queryParams": {
       "action": "CREATE"
@@ -151,7 +151,7 @@
     }
   },
   {
-    "testCaseId": "99",
+    "testCaseId": "107",
     "testCaseName": "Action parameter missing",
     "queryParams": {},
     "requestBody": {
@@ -159,7 +159,7 @@
         "productCode": [
           "192"
         ],
-        "customerId": "00801972",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": []
@@ -171,7 +171,7 @@
     }
   },
   {
-    "testCaseId": "100",
+    "testCaseId": "108",
     "testCaseName": "Missing customerId",
     "queryParams": {
       "action": "CREATE"
@@ -192,7 +192,7 @@
     }
   },
   {
-    "testCaseId": "101",
+    "testCaseId": "109",    
     "testCaseName": "Product code invalide",
     "queryParams": {
       "action": "CREATE"
@@ -202,7 +202,7 @@
         "productCode": [
           "999"
         ],
-        "customerId": "1000072",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -223,14 +223,14 @@
     }
   },
   {
-    "testCaseId": "102",
+    "testCaseId": "110",
     "testCaseName": "Product code missing",
     "queryParams": {
       "action": "CREATE"
     },
     "requestBody": {
       "contractRequest": {
-        "customerId": "1000072",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -248,7 +248,7 @@
     }
   },
   {
-    "testCaseId": "103",
+    "testCaseId": "111",
     "testCaseName": "RIB Beneficiary invalid",
     "queryParams": {
       "action": "CREATE"
@@ -258,7 +258,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000072",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -279,7 +279,7 @@
     }
   },
   {
-    "testCaseId": "104",
+    "testCaseId": "112",
     "testCaseName": "Invalid action parameter",
     "queryParam": {
       "action": "CREATE123"
@@ -289,7 +289,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "00801980",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -307,7 +307,7 @@
     }
   },
   {
-    "testCaseId": "105",
+    "testCaseId": "113",
     "testCaseName": "Update with a customerId doesn't exist",
     "queryParam": {
       "action": "UPDATE"
@@ -317,7 +317,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "8888888",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -338,7 +338,7 @@
     }
   },
   {
-    "testCaseId": "106",
+    "testCaseId": "114",
     "testCaseName": "Invalid currency for beneficiary",
     "queryParam": {
       "action": "CREATE"
@@ -348,7 +348,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "{{customerId}}",
+        "customerId": "01",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": [
@@ -369,7 +369,7 @@
     }
   },
   {
-    "testCaseId": "107",
+    "testCaseId": "115",
     "testCaseName": "Create contract with an unverified customer",
     "queryParam": {
       "action": "CREATE"
@@ -379,7 +379,7 @@
         "productCode": [
           "292"
         ],
-        "customerId": "1000073",
+        "customerId": "02",
         "bankCode": "00004",
         "languageCode": "fr",
         "beneficiaries": []

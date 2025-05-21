@@ -1,6 +1,6 @@
 [
   {
-    "testCaseId": "50",
+    "testCaseId": "58",
     "testCaseName": "Valid Request Data",
     "description": "This test case checks the successful sending of an OTP with valid data. It sends a valid data example to the endpoint and expects that the OTP is sent successfully.",
     "requestBody": {
@@ -22,7 +22,7 @@
     }
   },
   {
-    "testCaseId": "51",
+    "testCaseId": "59",
     "testCaseName": "Send another request with same number/email",
     "description": "This test case checks the successful sending of an OTP with valid data that were used before to request an OTP. It sends a valid data example to the endpoint and expects that the OTP is sent successfully. This is to check whether user can request the OTP twice with same personal information.",
     "requestBody": {
@@ -44,7 +44,7 @@
     }
   },
   {
-    "testCaseId": "52",
+    "testCaseId": "60",
     "testCaseName": "Sending empty request",
     "description": "This test case checks the error response when sending an empty request. It sends an empty request to the endpoint and expects that the OTP is not sent.",
     "requestBody": {
@@ -59,7 +59,7 @@
     }
   },
   {
-    "testCaseId": "53",
+    "testCaseId": "61",
     "testCaseName": "Sending OTP without phone number, email",
     "description": "This test case checks the error response when sending an OTP without providing a phone number or email. It sends a request with only customerId and expects that the OTP is not sent.",
     "requestBody": {
@@ -78,7 +78,7 @@
     }
   },
   {
-    "testCaseId": "54",
+    "testCaseId": "62",
     "testCaseName": "Sending OTP without phone number",
     "description": "This test case checks the error response when sending an OTP without providing a phone number. It sends a request with only email and expects that the OTP is not sent.",
     "requestBody": {
@@ -98,7 +98,7 @@
     }
   },
   {
-    "testCaseId": "55",
+    "testCaseId": "63",
     "testCaseName": "Sending OTP w/ Local Phone Number w/o mail",
     "description": "This test case checks the successful sending of an OTP with a local phone number and without providing an email. It sends a request with only phone number that is local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
     "requestBody": {
@@ -119,7 +119,7 @@
     }
   },
   {
-    "testCaseId": "56",
+    "testCaseId": "64",
     "testCaseName": "Sending OTP w/ Non-Local Phone Number w/o mail",
     "description": "This test case checks the error response when sending an OTP with a non-local phone number and without providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is not sent.",
     "requestBody": {
@@ -139,7 +139,7 @@
     }
   },
   {
-    "testCaseId": "57",
+    "testCaseId": "65",
     "testCaseName": "Sending OTP w/ Non-Local Phone Number w/ mail",
     "description": "This test case checks the successful sending of an OTP with a non-local phone number and with providing an email. It sends a request with only phone number that is not local to the country of origin (Tunisian in this case) and expects that the OTP is sent successfully.",
     "requestBody": {
@@ -161,7 +161,7 @@
     }
   },
   {
-    "testCaseId": "58",
+    "testCaseId": "66",
     "testCaseName": "Sending OTP w/ Phone Number not respecting format w/ email",
     "description": "This test case checks the error response when sending an OTP with a phone number that does not respect the format and with providing an email. It sends a request with a phone number that doesn't respect the format along with email and expects that the OTP is not sent.",
     "requestBody": {
@@ -182,7 +182,7 @@
     }
   },
   {
-    "testCaseId": "59",
+    "testCaseId": "67",
     "testCaseName": "Phone number with special characters",
     "description": "This test case checks the error response when sending an OTP with a phone number that contains special characters. It sends a request with a phone number that contains special characters and expects that the OTP is not sent.",
     "requestBody": {
@@ -202,7 +202,7 @@
     }
   },
   {
-    "testCaseId": "60",
+    "testCaseId": "68",
     "testCaseName": "Long phone number",
     "requestBody": {
       "sendOtpRequest": {
@@ -221,7 +221,7 @@
     }
   },
   {
-    "testCaseId": "61",
+    "testCaseId": "69",
     "testCaseName": "Short phone number",
     "requestBody": {
       "sendOtpRequest": {
@@ -240,7 +240,7 @@
     }
   },
   {
-    "testCaseId": "62",
+    "testCaseId": "70",
     "testCaseName": "Alphanumeric Phone Number",
     "requestBody": {
       "sendOtpRequest": {
@@ -259,7 +259,7 @@
     }
   },
   {
-    "testCaseId": "63",
+    "testCaseId": "71",
     "testCaseName": "phone number not string",
     "requestBody": {
       "sendOtpRequest": {
@@ -279,7 +279,7 @@
     }
   },
   {
-    "testCaseId": "64",
+    "testCaseId": "72",
     "testCaseName": "Email without @",
     "requestBody": {
       "sendOtpRequest": {
@@ -299,7 +299,7 @@
     }
   },
   {
-    "testCaseId": "65",
+    "testCaseId": "73",
     "testCaseName": "Email w/ more @",
     "requestBody": {
       "sendOtpRequest": {
@@ -319,7 +319,7 @@
     }
   },
   {
-    "testCaseId": "66",
+    "testCaseId": "74",
     "testCaseName": "Long email",
     "requestBody": {
       "sendOtpRequest": {
@@ -339,7 +339,7 @@
     }
   },
   {
-    "testCaseId": "67",
+    "testCaseId": "75",
     "testCaseName": "Email not string",
     "requestBody": {
       "sendOtpRequest": {
@@ -359,7 +359,7 @@
     }
   },
   {
-    "testCaseId": "68",
+    "testCaseId": "76",
     "testCaseName": "Email w/ special characters",
     "requestBody": {
       "sendOtpRequest": {
@@ -379,7 +379,7 @@
     }
   },
   {
-    "testCaseId": "69",
+    "testCaseId": "77",
     "testCaseName": "Missing bank code",
     "requestBody": {
       "sendOtpRequest": {
@@ -398,7 +398,7 @@
     }
   },
   {
-    "testCaseId": "70",
+    "testCaseId": "78",
     "testCaseName": "Inexistant bank code",
     "requestBody": {
       "sendOtpRequest": {
@@ -418,7 +418,7 @@
     }
   },
   {
-    "testCaseId": "71",
+    "testCaseId": "79",
     "testCaseName": "Bank code w/ special characters",
     "requestBody": {
       "sendOtpRequest": {
@@ -438,7 +438,7 @@
     }
   },
   {
-    "testCaseId": "72",
+    "testCaseId": "80",
     "testCaseName": "Bank code not string",
     "requestBody": {
       "sendOtpRequest": {
@@ -458,7 +458,7 @@
     }
   },
   {
-    "testCaseId": "73",
+    "testCaseId": "81",
     "testCaseName": "Long bank code",
     "requestBody": {
       "sendOtpRequest": {
@@ -478,7 +478,7 @@
     }
   },
   {
-    "testCaseId": "74",
+    "testCaseId": "82",
     "testCaseName": "Language code missing",
     "requestBody": {
       "sendOtpRequest": {
@@ -497,7 +497,7 @@
     }
   },
   {
-    "testCaseId": "75",
+    "testCaseId": "83",
     "testCaseName": "Language code w/ special characters",
     "requestBody": {
       "sendOtpRequest": {
@@ -517,7 +517,7 @@
     }
   },
   {
-    "testCaseId": "76",
+    "testCaseId": "84",
     "testCaseName": "Language code not string",
     "requestBody": {
       "sendOtpRequest": {
@@ -537,7 +537,7 @@
     }
   },
   {
-    "testCaseId": "77",
+    "testCaseId": "85",
     "testCaseName": "inexistant language code",
     "requestBody": {
       "sendOtpRequest": {
@@ -557,7 +557,7 @@
     }
   },
   {
-    "testCaseId": "78",
+    "testCaseId": "86",
     "testCaseName": "Missing customerId",
     "requestBody": {
       "sendOtpRequest": {
@@ -576,7 +576,7 @@
     }
   },
   {
-    "testCaseId": "79",
+    "testCaseId": "87",
     "testCaseName": "long language code",
     "requestBody": {
       "sendOtpRequest": {
@@ -596,7 +596,7 @@
     }
   },
   {
-    "testCaseId": "80",
+    "testCaseId": "88",
     "testCaseName": "Verify a valid OTP",
     "requestBody": {
       "verifyOtpRequest": {
@@ -613,7 +613,7 @@
     }
   },
   {
-    "testCaseId": "81",
+    "testCaseId": "89",
     "testCaseName": "Verify an expired OTP (after 6 minutes)",
     "requestBody": {
       "verifyOtpRequest": {
@@ -630,7 +630,7 @@
     }
   },
   {
-    "testCaseId": "82",
+    "testCaseId": "90",
     "testCaseName": "Verify an old OTP after creating another one",
     "requestBody": {
       "verifyOtpRequest": {
@@ -647,7 +647,7 @@
     }
   },
   {
-    "testCaseId": "83",
+    "testCaseId": "91",
     "testCaseName": "Inexistant identifier",
     "requestBody": {
       "verifyOtpRequest": {
@@ -664,7 +664,7 @@
     }
   },
   {
-    "testCaseId": "84",
+    "testCaseId": "92",
     "testCaseName": "Verify OTP with incorrect password",
     "requestBody": {
       "verifyOtpRequest": {
@@ -681,7 +681,7 @@
     }
   },
   {
-    "testCaseId": "85",
+    "testCaseId": "93",
     "testCaseName": "Verify an empty OTP request",
     "requestBody": {
       "verifyOtpRequest": {}
@@ -695,7 +695,7 @@
     }
   },
   {
-    "testCaseId": "86",
+    "testCaseId": "94",
     "testCaseName": "Missing identifier - Verify that the API returns an error when the identifier is absent",
     "requestBody": {
       "verifyOtpRequest": {
@@ -711,7 +711,7 @@
     }
   },
   {
-    "testCaseId": "87",
+    "testCaseId": "95",
     "testCaseName": "Identifier with special characters",
     "requestBody": {
       "verifyOtpRequest": {
@@ -728,7 +728,7 @@
     }
   },
   {
-    "testCaseId": "88",
+    "testCaseId": "96",
     "testCaseName": "Long identifier",
     "requestBody": {
       "verifyOtpRequest": {
@@ -745,7 +745,7 @@
     }
   },
   {
-    "testCaseId": "89",
+    "testCaseId": "97",
     "testCaseName": "Numbered identifier (not string)",
     "requestBody": {
       "verifyOtpRequest": {
@@ -762,7 +762,7 @@
     }
   },
   {
-    "testCaseId": "90",
+    "testCaseId": "98",
     "testCaseName": "Missing OTP",
     "requestBody": {
       "verifyOtpRequest": {
@@ -778,7 +778,7 @@
     }
   },
   {
-    "testCaseId": "91",
+    "testCaseId": "99",
     "testCaseName": "Long OTP",
     "requestBody": {
       "verifyOtpRequest": {
@@ -795,7 +795,7 @@
     }
   },
   {
-    "testCaseId": "92",
+    "testCaseId": "100",
     "testCaseName": "Invalid OTP format",
     "requestBody": {
       "verifyOtpRequest": {
@@ -812,7 +812,7 @@
     }
   },
   {
-    "testCaseId": "93",
+    "testCaseId": "101",
     "testCaseName": "Numbered OTP",
     "requestBody": {
       "verifyOtpRequest": {

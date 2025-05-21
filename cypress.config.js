@@ -1,14 +1,11 @@
 const { defineConfig } = require("cypress");
 const oracledb = require("oracledb");
-const fs = require("fs");
-const path = require("path");
 const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
-
-export default {
+module.exports = defineConfig ({
   e2e: {
     setupNodeEvents(on, config) {
-        allureWriter(on, config);
+      allureWriter(on, config);
       on("task", {
         async fetchReceivedOtpFromDb({ query }) {
           try {
@@ -75,13 +72,8 @@ export default {
       });
     },
     baseUrl: "http://localhost:8030",
-    env:{
-        allure: true,
-        fixturesPath:
-        "C:/cypress-tests-contracts-service/cypress/fixtures",
-        getContractsUrl: "http://localhost:8030",
-        getContractsUrlId: "http://localhost:8030/api/v1/contract",
-
-    }
+    env: {
+      allure: true,
+    },
   },
-};
+});

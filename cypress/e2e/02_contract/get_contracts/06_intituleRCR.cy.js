@@ -5,14 +5,12 @@ describe("GET /api/v1/contracts - Recherche par intituleRCR", () => {
     cy.getToken();
   });
 
-  const url = Cypress.env("getContractsUrl");
-
   it("TC43 | should return 200 and contracts for valid intituleRCR", function () {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "43");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +41,7 @@ describe("GET /api/v1/contracts - Recherche par intituleRCR", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "37");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +63,7 @@ describe("GET /api/v1/contracts - Recherche par intituleRCR", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "45");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +87,7 @@ describe("GET /api/v1/contracts - Recherche par intituleRCR", () => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "46");
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

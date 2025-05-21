@@ -4,14 +4,13 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
     cy.fetchContractsBySubscriptionDate();
     cy.fixture("getContractsBysubscriptionDate.json").as("contractsData");
   });
-  const url = Cypress.env("getContractsUrl");
   it("TC25 | should return 200 and a list of contracts for valid dateSouscriptionMaxR", function () {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "25");
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
         failOnStatusCode: false,
       }).then((res) => {
@@ -37,7 +36,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
         failOnStatusCode: false,
       }).then((res) => {
@@ -59,7 +58,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
@@ -81,7 +80,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
         failOnStatusCode: false,
       }).then((res) => {
@@ -103,7 +102,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
@@ -125,7 +124,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
         failOnStatusCode: false,
       }).then((res) => {
@@ -147,7 +146,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
         failOnStatusCode: false,
       }).then((res) => {
@@ -169,7 +168,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`,
+        url: `/${testCase.api}`,
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
@@ -194,7 +193,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        url: `/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
@@ -219,7 +218,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        url: `/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);
@@ -245,7 +244,7 @@ describe("GET /api/v1/contracts - Search by dateSouscriptionMaxR and dateSouscri
 
       cy.request({
         method: testCase.method,
-        url: `${url}/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
+        url: `/${testCase.api}`, // L'URL doit inclure dateSouscriptionMinR, dateSouscriptionMaxR et datePattern
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         expect(res.status).to.eq(testCase.statusCode);

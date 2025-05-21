@@ -22,8 +22,8 @@ describe("/api/v1/otp/send test suite", () => {
     }
   });
 
-  it("TC-50 | Send a request for OTP with valid data", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "50");
+  it("TC-58 | Send a request for OTP with valid data", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "58");
     
     
 
@@ -52,7 +52,7 @@ describe("/api/v1/otp/send test suite", () => {
       );
 
       const updatedOtpData = this.otpData.map((tc) =>
-        tc.testCaseId === "50"
+        tc.testCaseId === "58"
           ? {
               ...tc,
               responseBody: {
@@ -80,8 +80,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-51 | Send another request with same number/email", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "51");
+  it("TC-59 | Send another request with same number/email", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "59");
     let updatedOtpData;
 
     cy.request({
@@ -108,7 +108,7 @@ describe("/api/v1/otp/send test suite", () => {
         "identifier"
       );
       const updatedOtpData = this.otpData.map((tc) =>
-        tc.testCaseId === "51"
+        tc.testCaseId === "59"
           ? {
               ...tc,
               responseBody: {
@@ -135,8 +135,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-52 | Sending empty request", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "52");
+  it("TC-60 | Sending empty request", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "60");
 
     cy.request({
       method: "POST",
@@ -167,8 +167,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-53 | Sending OTP without phone number, email", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "53");
+  it("TC-61 | Sending OTP without phone number, email", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "61");
 
     cy.request({
       method: "POST",
@@ -199,8 +199,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-54 | Sending OTP without phone number", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "54");
+  it("TC-62 | Sending OTP without phone number", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "62");
 
     cy.request({
       method: "POST",
@@ -231,8 +231,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-55 | Sending OTP w/ Local Phone Number w/o mail", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "55");
+  it("TC-63 | Sending OTP w/ Local Phone Number w/o mail", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "63");
 
     cy.request({
       method: "POST",
@@ -258,7 +258,7 @@ describe("/api/v1/otp/send test suite", () => {
         "identifier"
       );
       const updatedOtpData = this.otpData.map((tc) =>
-        tc.testCaseId === "55"
+        tc.testCaseId === "63"
           ? {
               ...tc,
               responseBody: {
@@ -285,8 +285,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-56 | Sending OTP w/ Non-Local Phone Number w/o mail", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "56");
+  it("TC-64 | Sending OTP w/ Non-Local Phone Number w/o mail", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "64");
 
     cy.request({
       method: "POST",
@@ -317,8 +317,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-57 | Sending OTP w/ Non-Local Phone Number w/ mail", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "57");
+  it("TC-65 | Sending OTP w/ Non-Local Phone Number w/ mail", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "65");
 
     cy.request({
       method: "POST",
@@ -344,7 +344,7 @@ describe("/api/v1/otp/send test suite", () => {
         "identifier"
       );
       const updatedOtpData = this.otpData.map((tc) =>
-        tc.testCaseId === "57"
+        tc.testCaseId === "65"
           ? {
               ...tc,
               responseBody: {
@@ -371,8 +371,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-58 | Sending OTP w/ Phone Number not respecting form w/ email", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "58");
+  it("TC-66 | Sending OTP w/ Phone Number not respecting form w/ email", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "66");
 
     cy.request({
       method: "POST",
@@ -404,8 +404,8 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-59 | Phone number with special characters", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "59");
+  it("TC-67 | Phone number with special characters", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "67");
 
     cy.request({
       method: "POST",
@@ -436,191 +436,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-60 | Long phone number", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "60");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-61 | Short phone number", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "61");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-62 | Alphanumeric phone number", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "62");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-63 | Phone number not string", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "63");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-64 | Email without @", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "64");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-65 | Email w/ more @", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "65");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-66 | Long email", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "66");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-67 | Email not string", function () {
-    const testCase = this.otpData.find((tc) => tc.testCaseId === "67");
-
-    cy.request({
-      method: "POST",
-      url: "/api/v1/otp/send",
-      body: testCase.requestBody,
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response.status).to.eq(500);
-      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
-      expect(response.body.ResponseWrapper).to.have.property("error");
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "code",
-        testCase.responseBody.error.code
-      );
-      expect(response.body.ResponseWrapper.error).to.have.property(
-        "message",
-        testCase.responseBody.error.message
-      );
-    });
-  });
-
-  it("TC-68 | Email with special characters", function () {
+  it("TC-68 | Long phone number", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "68");
 
     cy.request({
@@ -643,7 +459,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-69 | Sending OTP with missing bank code", function () {
+  it("TC-69 | Short phone number", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "69");
 
     cy.request({
@@ -666,7 +482,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-70 | Sending OTP with inexistant bank code", function () {
+  it("TC-70 | Alphanumeric phone number", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "70");
 
     cy.request({
@@ -689,7 +505,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-71 | Bank code w/ special characters", function () {
+  it("TC-71 | Phone number not string", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "71");
 
     cy.request({
@@ -712,7 +528,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-72 | Bank code not string", function () {
+  it("TC-72 | Email without @", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "72");
 
     cy.request({
@@ -735,7 +551,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-73 | Long bank code", function () {
+  it("TC-73 | Email w/ more @", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "73");
 
     cy.request({
@@ -758,7 +574,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-74 | Sending OTP with missing language code", function () {
+  it("TC-74 | Long email", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "74");
 
     cy.request({
@@ -781,7 +597,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-75 | Language code w/ special characters", function () {
+  it("TC-75 | Email not string", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "75");
 
     cy.request({
@@ -804,7 +620,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-76 | Language code not a string", function () {
+  it("TC-76 | Email with special characters", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "76");
 
     cy.request({
@@ -827,7 +643,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-77 | Inexistant language code", function () {
+  it("TC-77 | Sending OTP with missing bank code", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "77");
 
     cy.request({
@@ -850,7 +666,7 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-78 | Missing customerId", function () {
+  it("TC-78 | Sending OTP with inexistant bank code", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "78");
 
     cy.request({
@@ -873,8 +689,192 @@ describe("/api/v1/otp/send test suite", () => {
     });
   });
 
-  it("TC-79 | Long language code", function () {
+  it("TC-79 | Bank code w/ special characters", function () {
     const testCase = this.otpData.find((tc) => tc.testCaseId === "79");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-80 | Bank code not string", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "80");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-81 | Long bank code", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "81");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-82 | Sending OTP with missing language code", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "82");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-83 | Language code w/ special characters", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "83");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-84 | Language code not a string", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "84");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-85 | Inexistant language code", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "85");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-86 | Missing customerId", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "86");
+
+    cy.request({
+      method: "POST",
+      url: "/api/v1/otp/send",
+      body: testCase.requestBody,
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(500);
+      expect(response.body.ResponseWrapper).to.have.property("status", "ERROR");
+      expect(response.body.ResponseWrapper).to.have.property("error");
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "code",
+        testCase.responseBody.error.code
+      );
+      expect(response.body.ResponseWrapper.error).to.have.property(
+        "message",
+        testCase.responseBody.error.message
+      );
+    });
+  });
+
+  it("TC-87 | Long language code", function () {
+    const testCase = this.otpData.find((tc) => tc.testCaseId === "87");
 
     cy.request({
       method: "POST",
