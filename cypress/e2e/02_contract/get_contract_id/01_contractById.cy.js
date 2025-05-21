@@ -8,7 +8,7 @@ describe("api/v1/contracts/{id} - Get contract By a valid id", () => {
 
   
 
-  it("TC124 | should return 200 and valid contract data for a valid contract ID", function () {
+  it("TC-116 | should return 200 and valid contract data for a valid contract ID", function () {
     cy.get("@authToken").then((token) => {
       const testCase = this.contractsData.find((tc) => tc.testCaseId === "124");
       const contractId = testCase.queryParams.id;
@@ -214,7 +214,7 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     // });
   });
 
-  it("TC125 | should return ERROR_GENERAL when an unexpected error occurs", function () {
+  it("TC-117 | should return ERROR_GENERAL when an unexpected error occurs", function () {
     cy.get("@authToken").then((token) => {
       cy.request({
         method: "GET",
@@ -242,13 +242,13 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     });
   });
 
-  it("TC126 | should return ERR_CTR_0016 when contract does not exist", function () {
+  it("TC-118 | should return ERR_CTR_0016 when contract does not exist", function () {
     cy.get("@authToken").then((token) => {
       const nonExistentId = 1; // ID that doesn't exist
       
       cy.request({
         method: "GET",
-        url: `/api/v1/contracts/${nonExistentId}?client=abt`,
+        url: `/api/v1/contracts/${nonExistentId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -272,9 +272,9 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     });
   });
 
-  it("TC127 | should return ERR_GENERAL_0003 when ID is too large", function () {
+  it("TC119 | should return ERR_GENERAL_0003 when ID is too large", function () {
     cy.get("@authToken").then((token) => {
-      const invalidLargeId = "1111111111111111111111111111"; // Too large ID
+      const invalidLargeId = 1111111111111111111111111111; // Too large ID
       
       cy.request({
         method: "GET",
@@ -307,9 +307,9 @@ describe("api/v1/contracts/{id} - Error Handling Tests", () => {
     });
   });
 
-  it("TC128 | should return ERR_GENERAL_0003 when ID is not a number", function () {
+  it("TC120 | should return ERR_GENERAL_0003 when ID is not a number", function () {
     cy.get("@authToken").then((token) => {
-      const invalidAlphaId = "abc12"; // Non-numeric ID
+      const invalidAlphaId = "abc12"; 
       
       cy.request({
         method: "GET",

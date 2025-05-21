@@ -1,6 +1,6 @@
 [
   {
-    "testCaseId": "124",
+    "testCaseId": "116",
     "testCaseName": "Get contract By a valid id",
     "api": "api/v1/contracts/773297",
     "status": "SUCCESS",
@@ -347,6 +347,58 @@
         "montantVirMassQuotTousFormatted": "100 000 000,00",
         "montantMaxVirMassUnitTousFormatted": "50 000 000,00"
       }
+    }
+  },
+  {
+    "testCaseId": "117",
+    "testCaseName": "should return ERROR_GENERAL when an unexpected error occurs",
+    "api": "/api/v1/contracts/",
+    "status": "ERROR",
+    "responseBody": {
+      "error": "ERR_GENERAL_0005",
+      "message": "An unexpected error occurred. Please try again later."
+    }
+  },
+
+  {
+    "testCaseId": "118",
+    "testCaseName": "should return ERR_CTR_0016 when contract does not exist",
+    "api": "/api/v1/contracts/1",
+    "status": "ERROR",
+    "queryParams": {
+      "id": 1
+    },
+    "responseBody": {
+      "error": "ERR_CTR_0016",
+      "message": "The specified contract could not be found."
+    }
+  },
+
+  {
+    "testCaseId": "119",
+    "testCaseName": "should return ERR_GENERAL_0003 when ID is too large",
+    "api": "/api/v1/contracts/1111111111111111111111111111",
+    "status": "ERROR",
+    "queryParams": {
+      "id": 1111111111111111111111111111
+    },
+    "responseBody": {
+      "error": "ERR_GENERAL_0003",
+      "message": "Argument type mismatch."
+    }
+  },
+
+  {
+    "testCaseId": "120",
+    "testCaseName": "should return ERR_GENERAL_0003 when ID is not a number",
+    "api": "/api/v1/contracts/abc12",
+    "status": "ERROR",
+    "queryParams": {
+      "id": "abc12"
+    },
+    "responseBody": {
+      "error": "ERR_GENERAL_0003",
+      "message": "Argument type mismatch."
     }
   }
 ]
